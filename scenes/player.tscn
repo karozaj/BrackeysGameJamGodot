@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://cl0wa8s1cow4w"]
+
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_uq8ue"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4qd1p"]
+radius = 0.35
+height = 1.75
+
+[sub_resource type="BoxMesh" id="BoxMesh_uvq2d"]
+size = Vector3(0.39, 0.21, 1)
+
+[node name="Player" type="CharacterBody3D"]
+collision_mask = 2
+script = ExtResource("1_uq8ue")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
+shape = SubResource("CapsuleShape3D_4qd1p")
+
+[node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Pivot"]
+current = true
+
+[node name="gun" type="MeshInstance3D" parent="Pivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4295, -1.1142)
+layers = 2
+mesh = SubResource("BoxMesh_uvq2d")
+skeleton = NodePath("../../..")
+
+[node name="RayCast3D" type="RayCast3D" parent="Pivot/Camera3D"]
+target_position = Vector3(0, 0, -8)
+collision_mask = 2
+debug_shape_thickness = 5
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1
