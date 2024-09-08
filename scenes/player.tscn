@@ -1,13 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://cl0wa8s1cow4w"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_uq8ue"]
+[ext_resource type="PackedScene" uid="uid://bpoksxmknp5kb" path="res://assets/3d/pistol.glb" id="2_g25f3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4qd1p"]
 radius = 0.35
 height = 1.75
-
-[sub_resource type="BoxMesh" id="BoxMesh_uvq2d"]
-size = Vector3(0.39, 0.21, 1)
 
 [node name="Player" type="CharacterBody3D"]
 collision_mask = 2
@@ -23,16 +21,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 [node name="Camera3D" type="Camera3D" parent="Pivot"]
 current = true
 
-[node name="gun" type="MeshInstance3D" parent="Pivot/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4295, -1.1142)
-layers = 2
-mesh = SubResource("BoxMesh_uvq2d")
-skeleton = NodePath("../../..")
-
 [node name="RayCast3D" type="RayCast3D" parent="Pivot/Camera3D"]
 target_position = Vector3(0, 0, -8)
 collision_mask = 2
 debug_shape_thickness = 5
+
+[node name="pistol" parent="Pivot/Camera3D" instance=ExtResource("2_g25f3")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.332928, -0.342413, -0.555536)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
