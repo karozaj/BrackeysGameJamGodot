@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://i2rwq4qmwnqq"]
+
+[ext_resource type="PackedScene" uid="uid://bjypkjn0d06fy" path="res://assets/3d/chaingun2.glb" id="1_t7dny"]
+
+[node name="chaingun2" instance=ExtResource("1_t7dny")]
+
+[node name="Cylinder_001" parent="." index="0"]
+layers = 524288
+
+[node name="Cylinder_002" parent="Cylinder_001" index="0"]
+transform = Transform3D(0.745653, 0.666334, 0, -0.666334, 0.745653, 0, 0, 0, 1, -0.000122118, 0.0681506, 0.206719)
+layers = 524288
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "spin"

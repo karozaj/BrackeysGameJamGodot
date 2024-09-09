@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://cacvoko6f4gv1"]
+
+[node name="RocketProjectile" type="Sprite3D"]

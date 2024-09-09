@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b13ye36ns3ofo"
-path="res://.godot/imported/pistol.glb-b1cf917ae08d774064efd18fc89452cc.scn"
+uid="uid://cs8qehnyoree2"
+path="res://.godot/imported/rocket_launcher.glb-def609761610bf4f50200b735638f58e.scn"
 
 [deps]
 
-source_file="res://assets/3d/pistol.glb"
-dest_files=["res://.godot/imported/pistol.glb-b1cf917ae08d774064efd18fc89452cc.scn"]
+source_file="res://assets/3d/rocket_launcher.glb"
+dest_files=["res://.godot/imported/rocket_launcher.glb-def609761610bf4f50200b735638f58e.scn"]
 
 [params]
 

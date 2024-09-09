@@ -2,19 +2,19 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xhqc5c065j7"
-path="res://.godot/imported/pistol_pistol_texture.png-f45ffc467a4be2e916efcf39d8120231.ctex"
+uid="uid://d1cnlpfeyxi4c"
+path="res://.godot/imported/rocket_launcher_rocket_launcher_texture.png-855a314cfb716bf4e5972ca454c54346.ctex"
 metadata={
 "vram_texture": false
 }
 generator_parameters={
-"md5": "abe50c61fc7c2ac7eb876deac4bb2397"
+"md5": "5d590f9fc15fc99af13348908f4075f2"
 }
 
 [deps]
 
-source_file="res://assets/3d/pistol_pistol_texture.png"
-dest_files=["res://.godot/imported/pistol_pistol_texture.png-f45ffc467a4be2e916efcf39d8120231.ctex"]
+source_file="res://assets/3d/rocket_launcher_rocket_launcher_texture.png"
+dest_files=["res://.godot/imported/rocket_launcher_rocket_launcher_texture.png-855a314cfb716bf4e5972ca454c54346.ctex"]
 
 [params]
 

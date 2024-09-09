@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1e1ryq7s2wyc"]
+
+[ext_resource type="PackedScene" uid="uid://b13ye36ns3ofo" path="res://assets/3d/pistol.glb" id="1_lqs8q"]
+
+[node name="pistol" instance=ExtResource("1_lqs8q")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Cube_001" parent="." index="0"]
+layers = 524288

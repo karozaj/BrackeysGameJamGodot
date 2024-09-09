@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cctymfcfc2v3"]
+
+[ext_resource type="PackedScene" uid="uid://bakto4bsbu0g4" path="res://assets/3d/shotgun.glb" id="1_1sv6h"]
+
+[node name="shotgun" instance=ExtResource("1_1sv6h")]
+
+[node name="Cylinder" parent="." index="0"]
+layers = 524288

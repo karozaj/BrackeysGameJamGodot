@@ -2,19 +2,19 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xhqc5c065j7"
-path="res://.godot/imported/pistol_pistol_texture.png-f45ffc467a4be2e916efcf39d8120231.ctex"
+uid="uid://dskh1xdgd5q8g"
+path="res://.godot/imported/chaingun2_chaingun_texture.png-34ea96e7543fedcce96448eee154c6f1.ctex"
 metadata={
 "vram_texture": false
 }
 generator_parameters={
-"md5": "abe50c61fc7c2ac7eb876deac4bb2397"
+"md5": "8ed03e9e7cde9bcb7a0ac1fbbffb9d29"
 }
 
 [deps]
 
-source_file="res://assets/3d/pistol_pistol_texture.png"
-dest_files=["res://.godot/imported/pistol_pistol_texture.png-f45ffc467a4be2e916efcf39d8120231.ctex"]
+source_file="res://assets/3d/chaingun2_chaingun_texture.png"
+dest_files=["res://.godot/imported/chaingun2_chaingun_texture.png-34ea96e7543fedcce96448eee154c6f1.ctex"]
 
 [params]
 

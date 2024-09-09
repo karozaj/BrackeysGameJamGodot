@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cl0wa8s1cow4w"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_uq8ue"]
-[ext_resource type="PackedScene" uid="uid://bpoksxmknp5kb" path="res://assets/3d/pistol.glb" id="2_g25f3"]
+[ext_resource type="PackedScene" uid="uid://do81inxv6fsfr" path="res://scenes/weapons/weapon_manager.tscn" id="2_wudfx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4qd1p"]
 radius = 0.35
@@ -18,16 +18,20 @@ shape = SubResource("CapsuleShape3D_4qd1p")
 [node name="Pivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 
+[node name="GunCamera3D" type="Camera3D" parent="Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0022862)
+cull_mask = 524288
+
+[node name="WeaponManager" parent="Pivot/GunCamera3D" instance=ExtResource("2_wudfx")]
+
 [node name="Camera3D" type="Camera3D" parent="Pivot"]
+cull_mask = 524287
 current = true
 
 [node name="RayCast3D" type="RayCast3D" parent="Pivot/Camera3D"]
 target_position = Vector3(0, 0, -8)
 collision_mask = 2
 debug_shape_thickness = 5
-
-[node name="pistol" parent="Pivot/Camera3D" instance=ExtResource("2_g25f3")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.332928, -0.342413, -0.555536)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -47,3 +51,17 @@ size_flags_horizontal = 4
 text = "+"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4

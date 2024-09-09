@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://um6qgc6u7hxp"]
+
+[ext_resource type="PackedScene" uid="uid://cs8qehnyoree2" path="res://assets/3d/rocket_launcher.glb" id="1_we23q"]
+
+[node name="rocket_launcher" instance=ExtResource("1_we23q")]
+
+[node name="Cube_001" parent="." index="0"]
+layers = 524288

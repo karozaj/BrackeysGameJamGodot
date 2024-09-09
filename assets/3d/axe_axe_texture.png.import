@@ -2,19 +2,19 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xhqc5c065j7"
-path="res://.godot/imported/pistol_pistol_texture.png-f45ffc467a4be2e916efcf39d8120231.ctex"
+uid="uid://qlvubbhrvlh2"
+path="res://.godot/imported/axe_axe_texture.png-9755b9ee854d2b601ebfbdc5225fd432.ctex"
 metadata={
 "vram_texture": false
 }
 generator_parameters={
-"md5": "abe50c61fc7c2ac7eb876deac4bb2397"
+"md5": "1adf1abadbd37598a33277f9fafe4861"
 }
 
 [deps]
 
-source_file="res://assets/3d/pistol_pistol_texture.png"
-dest_files=["res://.godot/imported/pistol_pistol_texture.png-f45ffc467a4be2e916efcf39d8120231.ctex"]
+source_file="res://assets/3d/axe_axe_texture.png"
+dest_files=["res://.godot/imported/axe_axe_texture.png-9755b9ee854d2b601ebfbdc5225fd432.ctex"]
 
 [params]
 

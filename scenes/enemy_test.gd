@@ -3,6 +3,8 @@ extends CharacterBody3D
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
+var health:int=100
+var is_dead:bool=false
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var player:CharacterBody3D=get_tree().get_first_node_in_group("player")
@@ -13,7 +15,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
-	if player==null:
+	if player==null or is_dead:
 		return
 		
 	var current_location=global_transform.origin
@@ -38,3 +40,11 @@ func update_target_location(target_location):
 
 func jump():
 	velocity.y+=5.0
+	
+func damage(damage_points:int):
+	print(damage_points)
+	health-=damage_points
+	if health<=0:
+		is_dead=true
+		queue_free()
+	
