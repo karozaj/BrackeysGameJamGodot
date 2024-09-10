@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://do81inxv6fsfr"]
+[gd_scene load_steps=15 format=3 uid="uid://do81inxv6fsfr"]
 
 [ext_resource type="PackedScene" uid="uid://d1e1ryq7s2wyc" path="res://scenes/weapons/pistol.tscn" id="1_6qkyi"]
 [ext_resource type="Script" path="res://scenes/weapons/weapon_manager.gd" id="1_nis72"]
@@ -6,46 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://um6qgc6u7hxp" path="res://scenes/weapons/rocket_launcher.tscn" id="3_4qvrr"]
 [ext_resource type="PackedScene" uid="uid://i2rwq4qmwnqq" path="res://scenes/weapons/chaingun_2.tscn" id="4_koeed"]
 [ext_resource type="PackedScene" uid="uid://bmyl5auyd05l" path="res://scenes/weapons/axe.tscn" id="6_20077"]
-
-[sub_resource type="Animation" id="Animation_cr8y3"]
-resource_name = "pistol_select"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:is_pulling_out_weapon")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("right_position/pistol:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("right_position/pistol:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, -0.3, 0), Vector3(0, 0, 0)]
-}
+[ext_resource type="PackedScene" uid="uid://duhfiaki5a66k" path="res://scenes/weapons/block_weapon.tscn" id="7_5p87s"]
 
 [sub_resource type="Animation" id="Animation_f6dd4"]
 length = 0.001
@@ -182,44 +143,44 @@ tracks/10/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_ckep2"]
-resource_name = "shotgun_select"
+[sub_resource type="Animation" id="Animation_owv8e"]
+resource_name = "axe_select"
 length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("right_position/shotgun:visible")
+tracks/0/path = NodePath(".:is_pulling_out_weapon")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:is_pulling_out_weapon")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("right_position/shotgun:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("right_position/axe:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, -0.3, 0), Vector3(0, 0.0743132, 0)]
+"values": [Vector3(0, -0.3, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("right_position/axe:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_vuv71"]
@@ -262,6 +223,46 @@ tracks/2/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_cr8y3"]
+resource_name = "pistol_select"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:is_pulling_out_weapon")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("right_position/pistol:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("right_position/pistol:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.3, 0), Vector3(0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_ulwom"]
 resource_name = "rocket_launcher_select"
 length = 0.3
@@ -302,44 +303,44 @@ tracks/2/keys = {
 "values": [Vector3(0, -0.3, 0), Vector3(0, -0.0514643, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_owv8e"]
-resource_name = "axe_select"
+[sub_resource type="Animation" id="Animation_ckep2"]
+resource_name = "shotgun_select"
 length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:is_pulling_out_weapon")
+tracks/0/path = NodePath("right_position/shotgun:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true, false]
+"values": [true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("right_position/axe:position")
+tracks/1/path = NodePath(".:is_pulling_out_weapon")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, -0.3, 0), Vector3(0, 0, 0)]
+"update": 1,
+"values": [true, false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("right_position/axe:visible")
+tracks/2/path = NodePath("right_position/shotgun:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.3, 0), Vector3(0, 0.0743132, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_12vhb"]
@@ -380,6 +381,10 @@ visible = false
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 visible = false
 
+[node name="block_weapon" parent="right_position" instance=ExtResource("7_5p87s")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+visible = false
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_12vhb")
@@ -410,5 +415,7 @@ target_position = Vector3(-0.2, 0, -8)
 collision_mask = 6
 
 [node name="weapon_cooldown_timer" type="Timer" parent="."]
+
+[node name="ray_position" type="Marker3D" parent="."]
 
 [connection signal="timeout" from="weapon_cooldown_timer" to="." method="_on_weapon_cooldown_timer_timeout"]

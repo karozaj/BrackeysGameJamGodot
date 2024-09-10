@@ -128,6 +128,7 @@ func shoot()->void:
 				if current_weapon==pistol:
 					can_shoot=false
 					cooldown_timer.start(pistol_cooldown)
+					pistol.animation_player.play("shoot")
 					play_shot_sound(sound_pistol)
 					ammo["pistol"]-=1
 					if rays[0].is_colliding():

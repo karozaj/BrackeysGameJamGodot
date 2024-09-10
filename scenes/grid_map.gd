@@ -22,7 +22,7 @@ func place_block(world_coordinate):
 	if get_cell_item_orientation(map_coordinate)==-1:
 		print("place")
 		print(map_coordinate)
-		set_cell_item(map_coordinate,0)
+		set_cell_item(map_coordinate,3)
 		parent_nav_region.bake_navigation_mesh()
 
 #func highlight(world_coordinate):

@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://duhfiaki5a66k"]
+
+[ext_resource type="PackedScene" uid="uid://dotlombqi5g3x" path="res://assets/3d/block_weapon.glb" id="1_i0v1b"]
+
+[node name="block_weapon" instance=ExtResource("1_i0v1b")]
