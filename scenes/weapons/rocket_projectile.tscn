@@ -1,3 +1,35 @@
-[gd_scene format=3 uid="uid://cacvoko6f4gv1"]
+[gd_scene load_steps=5 format=3 uid="uid://cacvoko6f4gv1"]
 
-[node name="RocketProjectile" type="Sprite3D"]
+[ext_resource type="Script" path="res://scenes/weapons/rocket_projectile.gd" id="1_dk7x6"]
+[ext_resource type="Texture2D" uid="uid://dm41wq8xdiwm6" path="res://assets/img/muzzle_flash.png" id="2_x6chd"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_csfmj"]
+radius = 0.25
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_37lqn"]
+
+[node name="RocketProjectile" type="Area3D"]
+collision_mask = 6
+script = ExtResource("1_dk7x6")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 1
+texture = ExtResource("2_x6chd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_csfmj")
+
+[node name="projectile_lifetime_timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 0.3)
+collision_mask = 2
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_37lqn")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="projectile_lifetime_timer" to="." method="_on_projectile_lifetime_timer_timeout"]

@@ -51,9 +51,9 @@ func _unhandled_input(event):
 
 func _physics_process(delta):
 	
-	if raycast.is_colliding():
-		if raycast.get_collider().has_method("highlight"):
-			raycast.get_collider().highlight(raycast.get_collision_point()-raycast.get_collision_normal()/2)
+	#if raycast.is_colliding():
+		#if raycast.get_collider().has_method("highlight"):
+			#raycast.get_collider().highlight(raycast.get_collision_point()-raycast.get_collision_normal()/2)
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
