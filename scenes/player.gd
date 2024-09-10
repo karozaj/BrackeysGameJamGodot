@@ -20,6 +20,7 @@ func _ready():
 	add_to_group("player")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	RenderingServer.viewport_attach_camera($CanvasLayer/SubViewportContainer/SubViewport.get_viewport_rid(),gun_camera.get_camera_rid())
+	
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -29,19 +30,19 @@ func _unhandled_input(event):
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 		gun_camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 		
-	if Input.is_action_just_pressed("shoot"):
-		shoot()
-		if raycast.is_colliding():
-			if raycast.get_collider().has_method("destroy_block"):
-				print(raycast.get_collision_normal())
-				raycast.get_collider().destroy_block(raycast.get_collision_point()-raycast.get_collision_normal()/2)
-
-	
-	if Input.is_action_just_pressed("place_block"):
-		if raycast.is_colliding():
-			if raycast.get_collider().has_method("place_block"):
-				raycast.get_collider().place_block(raycast.get_collision_point()+raycast.get_collision_normal()/2)
-	
+	#if Input.is_action_just_pressed("shoot"):
+		#shoot()
+		#if raycast.is_colliding():
+			#if raycast.get_collider().has_method("destroy_block"):
+				#print(raycast.get_collision_normal())
+				#raycast.get_collider().destroy_block(raycast.get_collision_point()-raycast.get_collision_normal()/2)
+#
+	#
+	#if Input.is_action_just_pressed("place_block"):
+		#if raycast.is_colliding():
+			#if raycast.get_collider().has_method("place_block"):
+				#raycast.get_collider().place_block(raycast.get_collision_point()+raycast.get_collision_normal()/2)
+	#
 	
 	if Input.is_action_just_pressed('exit'):
 		get_tree().quit()
@@ -52,7 +53,7 @@ func _physics_process(delta):
 	
 	if raycast.is_colliding():
 		if raycast.get_collider().has_method("highlight"):
-			raycast.get_collider().highlight(raycast.get_collision_point()+raycast.get_collision_normal())
+			raycast.get_collider().highlight(raycast.get_collision_point()-raycast.get_collision_normal()/2)
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta

@@ -1,8 +1,144 @@
-[gd_scene load_steps=2 format=3 uid="uid://um6qgc6u7hxp"]
+[gd_scene load_steps=8 format=3 uid="uid://um6qgc6u7hxp"]
 
 [ext_resource type="PackedScene" uid="uid://cs8qehnyoree2" path="res://assets/3d/rocket_launcher.glb" id="1_we23q"]
+[ext_resource type="Script" path="res://scenes/weapons/rocket_launcher.gd" id="2_75kim"]
+[ext_resource type="Texture2D" uid="uid://dm41wq8xdiwm6" path="res://assets/img/muzzle_flash.png" id="3_a5nkk"]
+[ext_resource type="AudioStream" uid="uid://cvjbhoqqdn60s" path="res://assets/audio/gun_sfx/pistol.ogg" id="4_xrdmm"]
+
+[sub_resource type="Animation" id="Animation_7doc3"]
+resource_name = "shoot"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cube_001/tip/muzzle_flash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cube_001:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.1), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Cube_001:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.261799, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_shooting_sound"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.433333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"muzzle_flash_flip"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_e32fk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cube_001/tip/muzzle_flash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cube_001:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Cube_001:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_im076"]
+_data = {
+"RESET": SubResource("Animation_e32fk"),
+"shoot": SubResource("Animation_7doc3")
+}
 
 [node name="rocket_launcher" instance=ExtResource("1_we23q")]
+script = ExtResource("2_75kim")
 
 [node name="Cube_001" parent="." index="0"]
 layers = 524288
+
+[node name="tip" type="Marker3D" parent="Cube_001" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.998527, -0.0542531, 0, 0.0542531, 0.998527, 0.00055145, 0.137191, 0.770225)
+
+[node name="muzzle_flash" type="Sprite3D" parent="Cube_001/tip" index="0"]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+visible = false
+layers = 524288
+billboard = 1
+texture_filter = 0
+texture = ExtResource("3_a5nkk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_im076")
+}
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." index="2"]
+stream = ExtResource("4_xrdmm")

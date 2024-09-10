@@ -8,7 +8,7 @@ radius = 0.35
 height = 1.75
 
 [node name="Player" type="CharacterBody3D"]
-collision_mask = 2
+collision_mask = 6
 script = ExtResource("1_uq8ue")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -19,8 +19,10 @@ shape = SubResource("CapsuleShape3D_4qd1p")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
 
 [node name="GunCamera3D" type="Camera3D" parent="Pivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0022862)
 cull_mask = 524288
+
+[node name="Marker3D" type="Marker3D" parent="Pivot/GunCamera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7989)
 
 [node name="WeaponManager" parent="Pivot/GunCamera3D" instance=ExtResource("2_wudfx")]
 
@@ -29,6 +31,7 @@ cull_mask = 524287
 current = true
 
 [node name="RayCast3D" type="RayCast3D" parent="Pivot/Camera3D"]
+visible = false
 target_position = Vector3(0, 0, -8)
 collision_mask = 2
 debug_shape_thickness = 5
