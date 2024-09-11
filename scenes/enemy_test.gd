@@ -47,4 +47,6 @@ func damage(damage_points:int):
 	if health<=0:
 		is_dead=true
 		queue_free()
-	
+
+func attack():
+	pass

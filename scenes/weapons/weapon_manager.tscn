@@ -391,6 +391,7 @@ libraries = {
 }
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+bus = &"SFX"
 
 [node name="weapon_cooldown_timer" type="Timer" parent="."]
 

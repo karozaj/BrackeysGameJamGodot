@@ -1,43 +1,44 @@
 extends Area3D
 
-@export var projectile_speed:float=15.0
-@onready var timer=$projectile_lifetime_timer
-@onready var ray=$RayCast3D
-@onready var audio_player=$AudioStreamPlayer3D
+
+@onready var timer:Timer=$projectile_lifetime_timer
+@onready var ray:RayCast3D=$RayCast3D
+@onready var audio_player:AudioStreamPlayer3D=$AudioStreamPlayer3D
+@onready var explosion_area:Area3D=$Area3D
 
 var flying:bool=true
 var is_exploding:bool=false
+@export var projectile_speed:float=15.0
+var explosion_radius:float
+@export var max_explosion_damage:float=150.0
 
 func _ready() -> void:
 	timer.start()
+	explosion_radius=$Area3D/CollisionShape3D.shape.radius
 
 func _physics_process(delta: float) -> void:
 	if flying:
 		position+=transform.basis*Vector3(0,0,projectile_speed)*delta
-	else:
-		explode()
 
-func _on_body_entered(body: Node3D) -> void:
+func _on_body_entered(_body: Node3D) -> void:
+	set_deferred("monitoring",false)
 	$Sprite3D.visible=false
 	flying=false
-	
-	if body.has_method("damage"):
-		body.damage(100)
-	if body.has_method("destroy_block"):
-		if ray.is_colliding():
-				ray.get_collider().destroy_block(ray.get_collision_point()-ray.get_collision_normal()/2)
-	flying=false
-	audio_player.play()
+	if ray.is_colliding():
+		if ray.get_collider().has_method("destroy_block"):
+			ray.get_collider().destroy_block(ray.get_collision_point()-ray.get_collision_normal()/2)
+	explode()
+	$AnimationPlayer.play("explode")
 
 func explode()->void:
-	var tween=get_tree().create_tween()
-	$Area3D.scale
-	tween.tween_property($Area3D,"scale",Vector3(12.0,12.0,12.0),0.5)
-	#tween.tween_property($Area3D,"modulate",Color(0.804, 0.569, 0.231, 0),.5)
+	$ExplosionSprite.visible=true
+	var targets:Array=explosion_area.get_overlapping_bodies()
+	for target in targets:
+		if target.has_method("damage"):
+			var distance:float=global_position.distance_to(target.global_position)
+			var damage_modifier:float=abs(explosion_radius-distance)/explosion_radius
+			var calculated_damage:int=int(max_explosion_damage*damage_modifier)
+			target.damage(calculated_damage)
 
 func _on_projectile_lifetime_timer_timeout() -> void:
-	queue_free()
-
-
-func _on_audio_stream_player_3d_finished() -> void:
 	queue_free()

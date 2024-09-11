@@ -143,6 +143,7 @@ libraries = {
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." index="2"]
 stream = ExtResource("4_bkrxh")
+bus = &"SFX"
 
 [node name="RayCast3D" type="RayCast3D" parent="." index="3"]
 target_position = Vector3(0, 0, 8)

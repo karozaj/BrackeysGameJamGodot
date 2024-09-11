@@ -49,3 +49,7 @@ func reset_block_highlight():
 			set_cell_item(cell_coordinate, 0)
 		elif get_cell_item(cell_coordinate)==2:
 			set_cell_item(cell_coordinate,3)
+
+func update_navmesh():
+	if parent_nav_region.is_baking()==false:
+		parent_nav_region.bake_navigation_mesh()

@@ -126,6 +126,7 @@ libraries = {
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." index="3"]
 stream = ExtResource("4_fprh7")
+bus = &"SFX"
 
 [node name="rays" type="Node3D" parent="." index="4"]
 

@@ -1,5 +1,7 @@
 extends Node3D
 
+signal send_ammo_info(info:String)
+
 var rng=RandomNumberGenerator.new()
 
 @onready var cooldown_timer:Timer=$weapon_cooldown_timer
@@ -20,7 +22,7 @@ var weapons:Array
 var weapon_select_animations:Array=["axe_select","pistol_select", "shotgun_select", "chaingun_select", "rocket_launcher_select"]
 var is_block_mode_active:bool=false
 var can_shoot:bool=true
-var ammo:Dictionary={"block_weapon":20, "axe":"infinte", "pistol":10, "shotgun":10, "chaingun":100,"rocket_launcher":10}
+var ammo:Dictionary={"block_weapon":20, "axe":"infinite", "pistol":10, "shotgun":10, "chaingun":100,"rocket_launcher":10}
 var current_weapon
 var current_weapon_index:int
 var is_pulling_out_weapon:bool=false
@@ -62,30 +64,35 @@ func select_weapon()->void:
 		current_weapon=axe
 		current_weapon_index=0
 		animation_player.play("axe_select")
+		send_ammo_info.emit(str(ammo[current_weapon.name]))
 		play_weapon_select_sound()
 	elif Input.is_action_just_pressed("select_weapon_2"):
 		current_weapon.visible=false
 		current_weapon=pistol
 		current_weapon_index=1
 		animation_player.play("pistol_select")
+		send_ammo_info.emit(str(ammo[current_weapon.name]))
 		play_weapon_select_sound()
 	elif Input.is_action_just_pressed("select_weapon_3"):
 		current_weapon.visible=false
 		current_weapon=shotgun
 		current_weapon_index=2
 		animation_player.play("shotgun_select")
+		send_ammo_info.emit(str(ammo[current_weapon.name]))
 		play_weapon_select_sound()
 	elif Input.is_action_just_pressed("select_weapon_4"):
 		current_weapon.visible=false
 		current_weapon=chaingun
 		current_weapon_index=3
 		animation_player.play("chaingun_select")
+		send_ammo_info.emit(str(ammo[current_weapon.name]))
 		play_weapon_select_sound()
 	elif Input.is_action_just_pressed("select_weapon_5"):
 		current_weapon.visible=false
 		current_weapon=rocket_launcher
 		current_weapon_index=4
 		animation_player.play("rocket_launcher_select")
+		send_ammo_info.emit(str(ammo[current_weapon.name]))
 		play_weapon_select_sound()
 		
 	elif Input.is_action_just_pressed("next_weapon"):
@@ -93,12 +100,14 @@ func select_weapon()->void:
 		current_weapon_index=(current_weapon_index+1)%weapons.size()
 		current_weapon=weapons[current_weapon_index]
 		animation_player.play(weapon_select_animations[current_weapon_index])
+		send_ammo_info.emit(str(ammo[current_weapon.name]))
 		play_weapon_select_sound()
 	elif Input.is_action_just_pressed("previous_weapon"):
 		current_weapon.visible=false
 		current_weapon_index=(current_weapon_index-1)%weapons.size()
 		current_weapon=weapons[current_weapon_index]
 		animation_player.play(weapon_select_animations[current_weapon_index])
+		send_ammo_info.emit(str(ammo[current_weapon.name]))
 		play_weapon_select_sound()
 
 func play_weapon_select_sound():
@@ -109,6 +118,7 @@ func shoot_weapon()->void:
 	current_weapon.shoot()
 	if ammo[current_weapon.name] is int:
 		ammo[current_weapon.name]-=1
+		send_ammo_info.emit(str(ammo[current_weapon.name]))
 	can_shoot=false
 	cooldown_timer.start(current_weapon.cooldown)
 
@@ -143,6 +153,7 @@ func select_block_weapon()->void:
 	current_weapon.visible=true
 	current_weapon_index=-1
 	is_block_mode_active=true
+	send_ammo_info.emit(str(ammo[current_weapon.name]))
 
 func reset_weapon_selection()->void:
 	block.visible=false
@@ -152,18 +163,24 @@ func reset_weapon_selection()->void:
 	current_weapon=axe
 	current_weapon_index=0
 	current_weapon.visible=true
+	send_ammo_info.emit(str(ammo[current_weapon.name]))
 
 func handle_block_interaction()->void:
 	current_weapon.highlight()
 	if Input.is_action_just_pressed("shoot"):
 		if current_weapon.destroy_block()==true:
 			ammo["block_weapon"]+=1
+			send_ammo_info.emit(str(ammo[current_weapon.name]))
 			print("block destroyed")
 	if Input.is_action_just_pressed("place_block"):
 		if ammo["block_weapon"]>0:
 			if current_weapon.place_block()==true:
 				ammo["block_weapon"]-=1
+				send_ammo_info.emit(str(ammo[current_weapon.name]))
 				print("block placed")
 		else:
 			audio_player.stream=sound_no_ammo
 			audio_player.play()
+
+func get_current_ammo()->String:
+	return str(ammo[current_weapon.name])
