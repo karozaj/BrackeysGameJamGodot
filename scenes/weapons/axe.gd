@@ -28,7 +28,7 @@ func swing_attack():
 	var targets:Array=damage_area.get_overlapping_bodies()
 	for target in targets:
 		if target.has_method("damage"):
-			target.damage(base_damage)
+			target.damage(base_damage, global_position)
 	
 
 func play_swinging_sound():

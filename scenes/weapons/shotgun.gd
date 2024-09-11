@@ -19,7 +19,7 @@ func shoot():
 	for ray in rays:
 		if ray.is_colliding():
 			if ray.get_collider().has_method("damage"):
-				ray.get_collider().damage(base_damage+rng.randi_range(-5,5))
+				ray.get_collider().damage(base_damage+rng.randi_range(-5,5),global_position)
 
 func play_shooting_sound():
 	audio_player.pitch_scale=default_pitch+rng.randf_range(-.1,.1)

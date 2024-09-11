@@ -22,7 +22,7 @@ func shoot():
 	animation_player.play("shoot")
 	if ray.is_colliding():
 		if ray.get_collider().has_method("damage"):
-			ray.get_collider().damage(base_damage)
+			ray.get_collider().damage(base_damage,global_position)
 
 func play_shooting_sound():
 	audio_player.pitch_scale=default_pitch+rng.randf_range(-.05,.05)

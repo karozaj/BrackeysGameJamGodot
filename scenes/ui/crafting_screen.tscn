@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://dnmppkmbgjxxk"]
+
+[node name="CraftingScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AmmoInfoContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/AmmoInfoContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/AmmoInfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "blocks:"
+
+[node name="block" type="Label" parent="HBoxContainer/AmmoInfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/AmmoInfoContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/AmmoInfoContainer/HBoxContainer2"]
+layout_mode = 2
+text = "health:"
+
+[node name="health" type="Label" parent="HBoxContainer/AmmoInfoContainer/HBoxContainer2"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/AmmoInfoContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/AmmoInfoContainer/HBoxContainer3"]
+layout_mode = 2
+text = "pistol:"
+
+[node name="pistol" type="Label" parent="HBoxContainer/AmmoInfoContainer/HBoxContainer3"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/AmmoInfoContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/AmmoInfoContainer/HBoxContainer4"]
+layout_mode = 2
+text = "shotgun:"
+
+[node name="shotgun" type="Label" parent="HBoxContainer/AmmoInfoContainer/HBoxContainer4"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="HBoxContainer/AmmoInfoContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/AmmoInfoContainer/HBoxContainer5"]
+layout_mode = 2
+text = "machine gun:"
+
+[node name="machinegun" type="Label" parent="HBoxContainer/AmmoInfoContainer/HBoxContainer5"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="HBoxContainer/AmmoInfoContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/AmmoInfoContainer/HBoxContainer6"]
+layout_mode = 2
+text = "rocket launcher:"
+
+[node name="rocket" type="Label" parent="HBoxContainer/AmmoInfoContainer/HBoxContainer6"]
+layout_mode = 2
+text = "0"
+
+[node name="CraftingButtonsContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer/CraftingButtonsContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="HBoxContainer/CraftingButtonsContainer"]
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="HBoxContainer/CraftingButtonsContainer"]
+layout_mode = 2
+
+[node name="Button4" type="Button" parent="HBoxContainer/CraftingButtonsContainer"]
+layout_mode = 2
+
+[node name="Button5" type="Button" parent="HBoxContainer/CraftingButtonsContainer"]
+layout_mode = 2

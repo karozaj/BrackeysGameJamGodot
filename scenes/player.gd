@@ -24,6 +24,7 @@ var jump_available:bool=true
 var jump_buffer:bool=false
 var is_jumping:bool=false
 var gravity:float
+var knockback_modifier:float=20.0
 
 var health:int=100
 var is_dead:bool=false
@@ -124,15 +125,19 @@ func heal(heal_points:int):
 		health+=heal_points
 	ammo_display.update_health_counter()
 	
-func knockback():
-	pass
 	
-func damage(damage_points:int):
+func damage(damage_points:int, source_position:Vector3):
 	health-=damage_points
+	knockback(damage_points,source_position)
 	hurt_animation_player.play("hurt")
 	ammo_display.update_health_counter(health)
 	if health<=0:
 		die()
-		
+
+func knockback(damage_points:int,source:Vector3):
+	var knockback_direction:Vector3=global_position-source
+	knockback_direction=knockback_direction.normalized()
+	velocity+=knockback_direction*damage_points/100*knockback_modifier
+	
 func die():
 	is_dead=true

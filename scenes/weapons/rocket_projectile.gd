@@ -10,7 +10,8 @@ var flying:bool=true
 var is_exploding:bool=false
 @export var projectile_speed:float=15.0
 var explosion_radius:float
-@export var max_explosion_damage:float=150.0
+@export var max_explosion_damage:float=125.0
+@export var direct_damage:float=150.0
 
 func _ready() -> void:
 	timer.start()
@@ -27,6 +28,8 @@ func _on_body_entered(_body: Node3D) -> void:
 	if ray.is_colliding():
 		if ray.get_collider().has_method("destroy_block"):
 			ray.get_collider().destroy_block(ray.get_collision_point()-ray.get_collision_normal()/2)
+		elif ray.get_collider().has_method("damage"):
+			ray.get_collider().damage(direct_damage,global_position)
 	explode()
 	$AnimationPlayer.play("explode")
 
@@ -38,7 +41,7 @@ func explode()->void:
 			var distance:float=global_position.distance_to(target.global_position)
 			var damage_modifier:float=abs(explosion_radius-distance)/explosion_radius
 			var calculated_damage:int=int(max_explosion_damage*damage_modifier)
-			target.damage(calculated_damage)
+			target.damage(calculated_damage, global_position)
 
 func _on_projectile_lifetime_timer_timeout() -> void:
 	queue_free()

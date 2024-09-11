@@ -19,7 +19,7 @@ func shoot():
 	var ray_index:int=rng.randi_range(0,rays.size()-1)
 	if rays[ray_index].is_colliding():
 		if rays[ray_index].get_collider().has_method("damage"):
-			rays[ray_index].get_collider().damage(base_damage)
+			rays[ray_index].get_collider().damage(base_damage, global_position)
 
 func play_shooting_sound():
 	audio_player.pitch_scale=default_pitch+rng.randf_range(-.075,.075)
