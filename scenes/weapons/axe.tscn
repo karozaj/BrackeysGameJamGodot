@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bmyl5auyd05l"]
+[gd_scene load_steps=8 format=3 uid="uid://bmyl5auyd05l"]
 
 [ext_resource type="PackedScene" uid="uid://ckg4afbycciu1" path="res://assets/3d/axe.glb" id="1_xwxfe"]
 [ext_resource type="Script" path="res://scenes/weapons/axe.gd" id="2_w7dld"]
+[ext_resource type="AudioStream" uid="uid://b6srt4ymx8hii" path="res://assets/audio/gun_sfx/swing.ogg" id="3_5aly5"]
 
 [sub_resource type="Animation" id="Animation_qci3y"]
 length = 0.001
@@ -94,6 +95,7 @@ libraries = {
 }
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." index="2"]
+stream = ExtResource("3_5aly5")
 
 [node name="Area3D" type="Area3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0272141)

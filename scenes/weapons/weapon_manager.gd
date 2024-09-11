@@ -8,7 +8,7 @@ var rng=RandomNumberGenerator.new()
 @onready var ray_position:Marker3D=$ray_position
 
 var sound_no_ammo:AudioStream=preload("res://assets/audio/gun_sfx/no_ammo.ogg")
-var sound_weapon_select:AudioStream
+var sound_weapon_select:AudioStream=preload("res://assets/audio/gun_sfx/change_weapon.ogg")
 
 var block
 var axe
@@ -62,37 +62,48 @@ func select_weapon()->void:
 		current_weapon=axe
 		current_weapon_index=0
 		animation_player.play("axe_select")
+		play_weapon_select_sound()
 	elif Input.is_action_just_pressed("select_weapon_2"):
 		current_weapon.visible=false
 		current_weapon=pistol
 		current_weapon_index=1
 		animation_player.play("pistol_select")
+		play_weapon_select_sound()
 	elif Input.is_action_just_pressed("select_weapon_3"):
 		current_weapon.visible=false
 		current_weapon=shotgun
 		current_weapon_index=2
 		animation_player.play("shotgun_select")
+		play_weapon_select_sound()
 	elif Input.is_action_just_pressed("select_weapon_4"):
 		current_weapon.visible=false
 		current_weapon=chaingun
 		current_weapon_index=3
 		animation_player.play("chaingun_select")
+		play_weapon_select_sound()
 	elif Input.is_action_just_pressed("select_weapon_5"):
 		current_weapon.visible=false
 		current_weapon=rocket_launcher
 		current_weapon_index=4
 		animation_player.play("rocket_launcher_select")
+		play_weapon_select_sound()
 		
 	elif Input.is_action_just_pressed("next_weapon"):
 		current_weapon.visible=false
 		current_weapon_index=(current_weapon_index+1)%weapons.size()
 		current_weapon=weapons[current_weapon_index]
 		animation_player.play(weapon_select_animations[current_weapon_index])
+		play_weapon_select_sound()
 	elif Input.is_action_just_pressed("previous_weapon"):
 		current_weapon.visible=false
 		current_weapon_index=(current_weapon_index-1)%weapons.size()
 		current_weapon=weapons[current_weapon_index]
 		animation_player.play(weapon_select_animations[current_weapon_index])
+		play_weapon_select_sound()
+
+func play_weapon_select_sound():
+	audio_player.stream=sound_weapon_select
+	audio_player.play()
 
 func shoot_weapon()->void:
 	current_weapon.shoot()

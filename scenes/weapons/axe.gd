@@ -32,7 +32,7 @@ func swing_attack():
 	
 
 func play_swinging_sound():
-	audio_player.pitch_scale=default_pitch+rng.randf_range(-.05,.05)
+	audio_player.pitch_scale=default_pitch+rng.randf_range(-.1,.1)
 	audio_player.play()
 
 #func muzzle_flash_flip():

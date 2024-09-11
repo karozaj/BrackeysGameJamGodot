@@ -28,7 +28,7 @@ func place_block()->bool:
 	return false
 
 func check_block_clearance(target:Vector3)->bool:
-	var distance=ray.get_collision_point().distance_to(ray.global_position-Vector3(0.0,0.775,0.0))
+	var distance=target.distance_to(ray.global_position-Vector3(0.0,0.775,0.0))
 	if distance>1.5:
 		return true
 	return false
