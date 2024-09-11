@@ -38,6 +38,13 @@ func _ready():
 	update_ammo_counter(weapon_manager.get_current_ammo())
 
 func _unhandled_input(event):
+	#TODO DEBUG ONLY DELETE LATER
+	if Input.is_action_just_pressed("TEST"):
+		create_crafting_menu()
+	
+	if is_dead:
+		return
+		
 	if event is InputEventMouseMotion:
 		pivot.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
@@ -46,6 +53,9 @@ func _unhandled_input(event):
 		gun_camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 		
 func _process(_delta: float) -> void:
+	if is_dead:
+		return
+		
 	if is_on_floor() and abs(Vector2(velocity.x,velocity.z).length())>=2.0:
 		if footstep_audio_player.playing==false:
 			footstep_audio_player.pitch_scale=1.0+(abs(Vector2(velocity.x,velocity.z).length())-SPEED)/SPRINT_SPEED
@@ -61,13 +71,14 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta):
+	if is_dead:
+		return
+		
 	if Input.is_action_pressed("sprint"):
 		speed=SPRINT_SPEED
 	else:
 		speed=SPEED
-	
-	#if not is_on_floor():
-		#velocity += get_gravity() * delta
+
 	if not is_on_floor():
 		if jump_available:
 			if coyote_timer.is_stopped():
@@ -115,18 +126,18 @@ func _on_jump_buffer_timer_timeout() -> void:
 func _on_coyote_time_timer_timeout() -> void:
 	jump_available=false
 
-func update_ammo_counter(ammo_info:String):
+func update_ammo_counter(ammo_info:String)->void:
 	ammo_display.update_ammo_counter(ammo_info)
 	
-func heal(heal_points:int):
+func heal(heal_points:int)->void:
 	if health+heal_points>125:
 		health=125
 	else:
 		health+=heal_points
-	ammo_display.update_health_counter()
+	ammo_display.update_health_counter(health)
 	
 	
-func damage(damage_points:int, source_position:Vector3):
+func damage(damage_points:int, source_position:Vector3)->void:
 	health-=damage_points
 	knockback(damage_points,source_position)
 	hurt_animation_player.play("hurt")
@@ -134,10 +145,23 @@ func damage(damage_points:int, source_position:Vector3):
 	if health<=0:
 		die()
 
-func knockback(damage_points:int,source:Vector3):
+func knockback(damage_points:int,source:Vector3)->void:
 	var knockback_direction:Vector3=global_position-source
 	knockback_direction=knockback_direction.normalized()
 	velocity+=knockback_direction*damage_points/100*knockback_modifier
 	
-func die():
+func die()->void:
+	weapon_manager.is_parent_dead=true
 	is_dead=true
+
+func create_crafting_menu():
+		var crafting_menu=preload("res://scenes/ui/crafting_screen.tscn").instantiate()
+		$CanvasLayer.add_child(crafting_menu)
+		crafting_menu.send_ammo_info.connect(update_resource_info)
+		crafting_menu.update_resource_counts(weapon_manager.ammo,health)
+		
+func update_resource_info(ammo_info:Dictionary, health_info:int):
+	weapon_manager.ammo=ammo_info
+	health=health_info
+	update_ammo_counter(str(weapon_manager.ammo[weapon_manager.current_weapon.name]))
+	ammo_display.update_health_counter(health)

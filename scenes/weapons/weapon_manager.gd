@@ -26,6 +26,7 @@ var ammo:Dictionary={"block_weapon":20, "axe":"infinite", "pistol":10, "shotgun"
 var current_weapon
 var current_weapon_index:int
 var is_pulling_out_weapon:bool=false
+var is_parent_dead:bool=false
 
 func _ready() -> void:
 	is_pulling_out_weapon=false
@@ -51,12 +52,13 @@ func _process(_delta: float) -> void:
 			reset_weapon_selection()
 		else:
 			select_block_weapon()
-	
-	if is_block_mode_active==false:
-		handle_shooting()
-		select_weapon()
-	else:
-		handle_block_interaction()
+			
+	if is_parent_dead==false:
+		if is_block_mode_active==false:
+			handle_shooting()
+			select_weapon()
+		else:
+			handle_block_interaction()
 
 func select_weapon()->void:
 	if Input.is_action_just_pressed("select_weapon_1"):
