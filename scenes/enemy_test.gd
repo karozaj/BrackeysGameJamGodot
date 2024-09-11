@@ -10,6 +10,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var player:CharacterBody3D=get_tree().get_first_node_in_group("player")
 @onready var nav_agent:NavigationAgent3D=$NavigationAgent3D
 
+@export var knockback_modifier:float=50.0
+
 func _ready() -> void:
 	add_to_group("enemy")
 
@@ -41,10 +43,18 @@ func update_target_location(target_location):
 func jump():
 	velocity.y+=5.0
 	
-func damage(damage_points:int):
+func damage(damage_points:int, source_position:Vector3):
 	print(damage_points)
 	health-=damage_points
+	knockback(damage_points,source_position)
 	if health<=0:
 		is_dead=true
 		queue_free()
-	
+
+func knockback(damage_points:int,source:Vector3):
+	var knockback_direction:Vector3=global_position-source
+	knockback_direction=knockback_direction.normalized()
+	velocity+=knockback_direction*damage_points/100*knockback_modifier
+
+func attack():
+	pass

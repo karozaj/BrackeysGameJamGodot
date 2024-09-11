@@ -7,5 +7,6 @@
 mesh_library = ExtResource("1_ukv74")
 cell_size = Vector3(1, 1, 1)
 collision_layer = 2
+collision_mask = 5
 bake_navigation = true
 script = ExtResource("1_b61bo")
