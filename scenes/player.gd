@@ -39,8 +39,8 @@ func _ready():
 
 func _unhandled_input(event):
 	#TODO DEBUG ONLY DELETE LATER
-	if Input.is_action_just_pressed("TEST"):
-		create_crafting_menu()
+	#if Input.is_action_just_pressed("TEST"):
+		#create_crafting_menu()
 	
 	if is_dead:
 		return

@@ -123,7 +123,7 @@ layout_mode = 2
 [node name="health_button" type="Button" parent="HBoxContainer/CraftingContainer/CraftingButtonsContainer"]
 layout_mode = 2
 disabled = true
-text = "? blocks -> ! health"
+text = "? block -> ! health"
 
 [node name="pistol_button" type="Button" parent="HBoxContainer/CraftingContainer/CraftingButtonsContainer"]
 layout_mode = 2

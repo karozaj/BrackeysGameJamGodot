@@ -9,14 +9,16 @@ func _ready() -> void:
 	
 	parent_nav_region.bake_navigation_mesh()
 
-func destroy_block(world_coordinate):
-	print("destroy")
+func destroy_block(world_coordinate)->bool:
+	#print("destroy")
 	var map_coordinate=local_to_map(world_coordinate)
-	print(map_coordinate)
+	#print(map_coordinate)
 	if get_cell_item(map_coordinate)==2 or get_cell_item(map_coordinate)==3:
 		set_cell_item(map_coordinate,-1)
 		if parent_nav_region.is_baking()==false:
 			parent_nav_region.bake_navigation_mesh()
+		return true
+	return false
 	
 func place_block(world_coordinate):
 	var map_coordinate=local_to_map(world_coordinate)
