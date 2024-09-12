@@ -19,8 +19,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if flying:
-		position+=transform.basis*Vector3(0,0,projectile_speed)*delta
-
+		position-=transform.basis*Vector3(0,0,projectile_speed)*delta
+			
 func _on_body_entered(_body: Node3D) -> void:
 	set_deferred("monitoring",false)
 	$Sprite3D.visible=false

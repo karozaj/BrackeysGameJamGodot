@@ -13,7 +13,7 @@ var base_damage:int=15
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	ray.target_position.z=weapon_range
+	ray.target_position.z=-weapon_range
 
 func allign_rays(ray_position:Vector3):
 	ray.global_position=ray_position

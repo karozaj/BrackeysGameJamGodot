@@ -13,7 +13,7 @@ height = 0.75
 
 [node name="enemy_test" type="CharacterBody3D"]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 7
 script = ExtResource("1_oftka")
 
 [node name="rat_enemy" parent="." instance=ExtResource("2_2u7xy")]

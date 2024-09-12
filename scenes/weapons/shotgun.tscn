@@ -41,7 +41,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0, 3.14159, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_r5t7t"]
@@ -69,7 +69,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.0666667, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.25), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.25), Vector3(0, 0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -81,7 +81,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.0666667, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.610865, 0, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 3.14159, 0), Vector3(-0.610865, 3.14159, 0), Vector3(0, 3.14159, 0)]
 }
 tracks/3/type = "method"
 tracks/3/imported = false
@@ -122,6 +122,7 @@ _data = {
 script = ExtResource("2_8piyu")
 
 [node name="Cylinder" parent="." index="0"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 layers = 524288
 
 [node name="tip" type="Marker3D" parent="Cylinder" index="0"]
@@ -147,21 +148,21 @@ bus = &"SFX"
 [node name="rays" type="Node3D" parent="." index="3"]
 
 [node name="ray_center" type="RayCast3D" parent="rays" index="0"]
-target_position = Vector3(0, 0, 8)
+target_position = Vector3(0, 0, -8)
 collision_mask = 6
 
 [node name="ray_top" type="RayCast3D" parent="rays" index="1"]
-target_position = Vector3(0, 0.5, 8)
+target_position = Vector3(0, 0.5, -8)
 collision_mask = 6
 
 [node name="ray_bottom" type="RayCast3D" parent="rays" index="2"]
-target_position = Vector3(0, -0.5, 8)
+target_position = Vector3(0, -0.5, -8)
 collision_mask = 6
 
 [node name="ray_right" type="RayCast3D" parent="rays" index="3"]
-target_position = Vector3(0.5, 0, 8)
+target_position = Vector3(0.5, 0, -8)
 collision_mask = 6
 
 [node name="ray_left" type="RayCast3D" parent="rays" index="4"]
-target_position = Vector3(-0.5, 0, 8)
+target_position = Vector3(-0.5, 0, -8)
 collision_mask = 6

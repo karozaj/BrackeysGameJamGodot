@@ -42,7 +42,7 @@ func _unhandled_input(event):
 	#TODO DEBUG ONLY DELETE LATER
 	#if Input.is_action_just_pressed("TEST"):
 		#create_crafting_menu()
-	
+	#
 	if is_dead:
 		return
 		
@@ -139,12 +139,13 @@ func heal(heal_points:int)->void:
 	
 	
 func damage(damage_points:int, source_position:Vector3)->void:
-	health-=damage_points
-	knockback(damage_points,source_position)
-	hurt_animation_player.play("hurt")
-	ammo_display.update_health_counter(health)
-	if health<=0:
-		die()
+	if is_dead==false:
+		health-=damage_points
+		knockback(damage_points,source_position)
+		hurt_animation_player.play("hurt")
+		ammo_display.update_health_counter(health)
+		if health<=0:
+			die()
 
 func knockback(damage_points:int,source:Vector3)->void:
 	var knockback_direction:Vector3=global_position-source

@@ -14,7 +14,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready() -> void:
 	add_to_group("enemy")
-
+	
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if player==null or is_dead:
