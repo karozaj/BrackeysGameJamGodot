@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1l2fscjys7j2"]
+[gd_scene load_steps=5 format=3 uid="uid://c1l2fscjys7j2"]
 
 [ext_resource type="Script" path="res://scenes/enemy_test.gd" id="1_oftka"]
+[ext_resource type="PackedScene" uid="uid://hdy5ihn3sfpn" path="res://assets/3d/rat_enemy.glb" id="2_2u7xy"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_r0ymi"]
 radius = 0.375
@@ -15,8 +16,11 @@ collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_oftka")
 
+[node name="rat_enemy" parent="." instance=ExtResource("2_2u7xy")]
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_r0ymi")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
