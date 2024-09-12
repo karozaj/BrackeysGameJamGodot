@@ -1,6 +1,7 @@
 extends Node
 
 var current_map
+var player
 
 func get_volume(bus_name:String)->float:
 	var bus_index= AudioServer.get_bus_index(bus_name)

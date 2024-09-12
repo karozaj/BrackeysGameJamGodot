@@ -30,6 +30,7 @@ var health:int=100
 var is_dead:bool=false
 
 func _ready():
+	Global.player=self
 	add_to_group("player")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	RenderingServer.viewport_attach_camera($CanvasLayer/SubViewportContainer/SubViewport.get_viewport_rid(),gun_camera.get_camera_rid())
@@ -153,14 +154,19 @@ func knockback(damage_points:int,source:Vector3)->void:
 func die()->void:
 	weapon_manager.is_parent_dead=true
 	is_dead=true
+	hurt_animation_player.play("death")
 
-func create_crafting_menu():
+func create_crafting_menu()->void:
 		var crafting_menu=preload("res://scenes/ui/crafting_screen.tscn").instantiate()
 		$CanvasLayer.add_child(crafting_menu)
 		crafting_menu.send_ammo_info.connect(update_resource_info)
 		crafting_menu.update_resource_counts(weapon_manager.ammo,health)
-		
-func update_resource_info(ammo_info:Dictionary, health_info:int):
+
+func create_death_menu()->void:
+		var death_menu=preload("res://scenes/ui/death_menu.tscn").instantiate()
+		$CanvasLayer.add_child(death_menu)
+
+func update_resource_info(ammo_info:Dictionary, health_info:int)->void:
 	weapon_manager.ammo=ammo_info
 	health=health_info
 	update_ammo_counter(str(weapon_manager.ammo[weapon_manager.current_weapon.name]))

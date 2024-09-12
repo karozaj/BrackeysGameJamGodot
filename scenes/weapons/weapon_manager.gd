@@ -53,7 +53,7 @@ func _process(_delta: float) -> void:
 		else:
 			select_block_weapon()
 			
-	if is_parent_dead==false:
+	if is_parent_dead==false and is_pulling_out_weapon==false:
 		if is_block_mode_active==false:
 			handle_shooting()
 			select_weapon()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cl0wa8s1cow4w"]
+[gd_scene load_steps=13 format=3 uid="uid://cl0wa8s1cow4w"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_uq8ue"]
 [ext_resource type="PackedScene" uid="uid://do81inxv6fsfr" path="res://scenes/weapons/weapon_manager.tscn" id="2_wudfx"]
@@ -39,6 +39,48 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 0.215686)]
 }
 
+[sub_resource type="Animation" id="Animation_djx2d"]
+resource_name = "death"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/HurtOverlay:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/HurtOverlay:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"create_death_menu"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_oqdyx"]
 resource_name = "hurt"
 length = 0.2
@@ -70,6 +112,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_podfi"]
 _data = {
 "RESET": SubResource("Animation_ejcdn"),
+"death": SubResource("Animation_djx2d"),
 "hurt": SubResource("Animation_oqdyx")
 }
 
