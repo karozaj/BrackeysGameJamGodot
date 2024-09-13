@@ -131,8 +131,8 @@ func update_ammo_counter(ammo_info:String)->void:
 	ammo_display.update_ammo_counter(ammo_info)
 	
 func heal(heal_points:int)->void:
-	if health+heal_points>125:
-		health=125
+	if health+heal_points>200:
+		health=200
 	else:
 		health+=heal_points
 	ammo_display.update_health_counter(health)
@@ -153,9 +153,10 @@ func knockback(damage_points:int,source:Vector3)->void:
 	velocity+=knockback_direction*damage_points/100*knockback_modifier
 	
 func die()->void:
-	weapon_manager.is_parent_dead=true
-	is_dead=true
-	hurt_animation_player.play("death")
+	if is_dead==false:
+		weapon_manager.is_parent_dead=true
+		is_dead=true
+		hurt_animation_player.play("death")
 
 func create_crafting_menu()->void:
 		var crafting_menu=preload("res://scenes/ui/crafting_screen.tscn").instantiate()

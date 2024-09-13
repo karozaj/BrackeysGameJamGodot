@@ -4,28 +4,25 @@ extends CharacterBody3D
 @onready var walk_sound_player:AudioStreamPlayer3D=$WalkSoundPlayer
 @onready var sound_player:AudioStreamPlayer3D=$AudioStreamPlayer3D
 @onready var cooldown_timer:Timer=$cooldown_timer
-@onready var ray_left=$projectile_spawn_position_left/RayCast3D
-@onready var ray_right=$projectile_spawn_position_right/RayCast3D
+@onready var ray=$RayCast3D
 
 var pain_sound:AudioStream=load("res://assets/audio/enemies/grunt.ogg")
 var death_sound:AudioStream=load("res://assets/audio/enemies/death_grunt.ogg")
-var attack_sound:AudioStream=load("res://assets/audio/gun_sfx/rocket_launcher.ogg")
-
-var projectile_scene=load("res://scenes/weapons/rocket_projectile.tscn")
-var projectile
 
 const SPEED = 3.0
 
 var can_attack:bool=true
 var is_dead:bool=false
-@export var health:int=350
-@export var knockback_modifier:float=15.0
-@export var attack_cooldown:float=3.5
-@export var attack_range:float=25.0
+var is_in_pain:bool=false
+@export var health:int=50
+@export var base_damage:int=10
+@export var knockback_modifier:float=25.0
+@export var attack_cooldown:float=3.0
+@export var attack_range:float=15.0
 
 var rng:RandomNumberGenerator=RandomNumberGenerator.new()
-var default_pitch:float=1.0
-var gravity = 2.5*ProjectSettings.get_setting("physics/3d/default_gravity")
+var default_pitch:float=2.5
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var player:CharacterBody3D=get_tree().get_first_node_in_group("player")
 
@@ -45,8 +42,9 @@ func _physics_process(delta: float) -> void:
 			animation_player.play("walk")
 	
 	var looking_direction=Vector3(player.global_position.x,global_position.y,player.global_position.z)	
-	$projectile_spawn_position_left/RayCast3D.look_at(player.global_position+Vector3(0,1.5,0))
-	$projectile_spawn_position_right/RayCast3D.look_at(player.global_position+Vector3(0,1.5,0))
+	ray.look_at(player.global_position+Vector3(0,1.5,0))
+	#$projectile_spawn_position_left/RayCast3D.look_at(player.global_position+Vector3(0,1.5,0))
+	#$projectile_spawn_position_right/RayCast3D.look_at(player.global_position+Vector3(0,1.5,0))
 	look_at(looking_direction)
 	
 	var current_location=global_transform.origin
@@ -73,12 +71,17 @@ func _physics_process(delta: float) -> void:
 func damage(damage_points:int, source_position:Vector3)->void:
 	if is_dead==false:
 		print(damage_points)
-		if damage_points>=30:
-			sound_player.stream=pain_sound
-			sound_player.pitch_scale=default_pitch+rng.randf_range(-.15,.15)
-			sound_player.play()
+		sound_player.stream=pain_sound
+		sound_player.pitch_scale=default_pitch+rng.randf_range(-.15,.15)
+		sound_player.play()
 		health-=damage_points
 		knockback(damage_points,source_position)
+		is_in_pain=true
+		$pain_timer.start()
+		if animation_player.is_playing() and animation_player.current_animation=="shoot_right" or animation_player.current_animation=="shoot_left":
+			animation_player.stop()
+			$projectile_spawn_position_left/muzzle_flash_left.visible=false
+			$projectile_spawn_position_right/muzzle_flash_right.visible=false
 		if health<=0:
 			die()
 		
@@ -97,25 +100,16 @@ func die():
 	animation_player.play("death")
 
 func play_attack_sound():
-	sound_player.stream=attack_sound
-	sound_player.play()
+	$shoot_audio_player.play()
 
-func shoot_projectile_left():
-	if Global.current_map!=null:
-		projectile=projectile_scene.instantiate()
-		#projectile.is_direction_reversed=true
-		projectile.position=ray_left.global_position
-		projectile.transform.basis=$projectile_spawn_position_left/RayCast3D.global_transform.basis
-		#projectile.transform_basis=Basis(-ray_left.global_transform.basis.x,-ray_left.global_transform.basis.y,-ray_left.global_transform.basis.z)
-		Global.current_map.add_child(projectile)
-		
-func shoot_projectile_right():
-	if Global.current_map!=null:
-		projectile=projectile_scene.instantiate()
-		#projectile.is_direction_reversed=true
-		projectile.position=$projectile_spawn_position_right.global_position
-		projectile.transform.basis=$projectile_spawn_position_right/RayCast3D.global_transform.basis
-		Global.current_map.add_child(projectile)
-		
+func shoot():
+	if ray.is_colliding():
+		if ray.get_collider().has_method("damage"):
+			ray.get_collider().damage(base_damage,global_position)
+
 func _on_cooldown_timer_timeout() -> void:
 	can_attack=true
+
+
+func _on_pain_timer_timeout() -> void:
+	is_in_pain=false

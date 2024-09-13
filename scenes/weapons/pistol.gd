@@ -5,15 +5,9 @@ extends Node3D
 @onready var ray=$RayCast3D
 @onready var muzzle_flash:Sprite3D=$Cube_001/tip/muzzle_flash
 var default_pitch:float=1.0
-
-@export var weapon_range:float=15.0
 var rng=RandomNumberGenerator.new()
 var cooldown:float=.25
 var base_damage:int=15
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	ray.target_position.z=-weapon_range
 
 func allign_rays(ray_position:Vector3):
 	ray.global_position=ray_position

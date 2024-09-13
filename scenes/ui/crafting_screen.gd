@@ -61,7 +61,7 @@ func update_resource_counts(ammo_info:Dictionary, health:int)->void:
 	update_button_availability()
 
 func update_button_availability()->void:
-	if health_points>=125 or ammo_dictionary["block_weapon"]<costs[0]:
+	if health_points>=200 or ammo_dictionary["block_weapon"]<costs[0]:
 		buttons[0].disabled=true
 	else:
 		buttons[0].disabled=false

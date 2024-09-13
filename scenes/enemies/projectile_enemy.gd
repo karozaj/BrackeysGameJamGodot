@@ -11,21 +11,22 @@ var pain_sound:AudioStream=load("res://assets/audio/enemies/grunt.ogg")
 var death_sound:AudioStream=load("res://assets/audio/enemies/death_grunt.ogg")
 var attack_sound:AudioStream=load("res://assets/audio/gun_sfx/rocket_launcher.ogg")
 
-var projectile_scene=load("res://scenes/weapons/rocket_projectile.tscn")
+var projectile_scene=load("res://scenes/weapons/projectile.tscn")
 var projectile
 
 const SPEED = 3.0
 
 var can_attack:bool=true
 var is_dead:bool=false
-@export var health:int=350
-@export var knockback_modifier:float=15.0
-@export var attack_cooldown:float=3.5
+@export var health:int=100
+@export var base_damage:int=5
+@export var knockback_modifier:float=25.0
+@export var attack_cooldown:float=2.0
 @export var attack_range:float=25.0
 
 var rng:RandomNumberGenerator=RandomNumberGenerator.new()
-var default_pitch:float=1.0
-var gravity = 2.5*ProjectSettings.get_setting("physics/3d/default_gravity")
+var default_pitch:float=2.0
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var player:CharacterBody3D=get_tree().get_first_node_in_group("player")
 
@@ -73,10 +74,9 @@ func _physics_process(delta: float) -> void:
 func damage(damage_points:int, source_position:Vector3)->void:
 	if is_dead==false:
 		print(damage_points)
-		if damage_points>=30:
-			sound_player.stream=pain_sound
-			sound_player.pitch_scale=default_pitch+rng.randf_range(-.15,.15)
-			sound_player.play()
+		sound_player.stream=pain_sound
+		sound_player.pitch_scale=default_pitch+rng.randf_range(-.15,.15)
+		sound_player.play()
 		health-=damage_points
 		knockback(damage_points,source_position)
 		if health<=0:

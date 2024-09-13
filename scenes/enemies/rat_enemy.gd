@@ -71,14 +71,15 @@ func jump()->void:
 	velocity.y+=5.0
 	
 func damage(damage_points:int, source_position:Vector3)->void:
-	print(damage_points)
-	audio_player.stream=pain_sound
-	audio_player.pitch_scale=default_pitch+rng.randf_range(-.25,.05)
-	audio_player.play()
-	health-=damage_points
-	knockback(damage_points,source_position)
-	if health<=0:
-		die()
+	if is_dead==false:
+		print(damage_points)
+		audio_player.stream=pain_sound
+		audio_player.pitch_scale=default_pitch+rng.randf_range(-.25,.05)
+		audio_player.play()
+		health-=damage_points
+		knockback(damage_points,source_position)
+		if health<=0:
+			die()
 
 func die()->void:
 	is_dead=true

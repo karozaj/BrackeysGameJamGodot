@@ -124,6 +124,7 @@ _data = {
 }
 
 [node name="RocketProjectile" type="Area3D"]
+collision_layer = 8
 collision_mask = 7
 script = ExtResource("1_dk7x6")
 
