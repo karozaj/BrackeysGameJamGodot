@@ -7,7 +7,7 @@ func _ready() -> void:
 	if self.get_parent() is NavigationRegion3D:
 		parent_nav_region=self.get_parent()
 	
-	parent_nav_region.bake_navigation_mesh()
+	#parent_nav_region.bake_navigation_mesh()
 
 func destroy_block(world_coordinate)->bool:
 	#print("destroy")
