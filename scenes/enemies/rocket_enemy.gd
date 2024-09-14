@@ -18,7 +18,7 @@ const SPEED = 3.0
 
 var can_attack:bool=true
 var is_dead:bool=false
-@export var health:int=350
+@export var health:int=500
 @export var knockback_modifier:float=15.0
 @export var attack_cooldown:float=3.5
 @export var attack_range:float=25.0

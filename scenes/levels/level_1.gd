@@ -15,7 +15,7 @@ var block_reward:int=25
 
 func _ready() -> void:
 	Global.current_map=self
-	enemy_spawn_chance={"rat":35, "projectile":62, "hitscan":70, "cloud":93,"rocket":100}
+	enemy_spawn_chance={"rat":35, "projectile":61, "hitscan":72, "cloud":93,"rocket":100}
 	spawners=[$enemy_spawner,$enemy_spawner2,$enemy_spawner3,$enemy_spawner4]
 	begin_preparation_phase()
 
@@ -44,7 +44,7 @@ func generate_wave()->Array[String]:
 		wave_size=12
 		block_reward=25
 	elif current_wave<=2:
-		max_selector=70
+		max_selector=72
 		wave_size=12
 		block_reward=25
 	elif current_wave<=3:
@@ -52,21 +52,25 @@ func generate_wave()->Array[String]:
 		wave_size=12
 		block_reward=25
 	elif current_wave<=5:
-		max_selector=90
+		max_selector=97
 		wave_size=24
 		block_reward=25
 	elif current_wave<=7:
-		max_selector=95
-		wave_size=36
+		max_selector=100
+		wave_size=24
 		block_reward=40
 	elif current_wave<=10:
 		max_selector=100
-		wave_size=48
+		wave_size=36
 		block_reward=50
 	elif current_wave<=15:
 		max_selector=100
-		wave_size=60
+		wave_size=48
 		block_reward=55
+	elif current_wave<=20:
+		max_selector=100
+		wave_size=60
+		block_reward=60
 	else:
 		max_selector=100
 		wave_size=72
@@ -115,6 +119,7 @@ func begin_preparation_phase()->void:
 func _on_preparation_phase_timer_timeout() -> void:
 	player.weapon_manager.reset_weapon_selection()
 	$AudioStreamPlayer.play()
+	$NavigationRegion3D/block_gridmap.reset_block_highlight()
 	MusicPlayer.play_battle_music()
 	begin_battle_phase()
 

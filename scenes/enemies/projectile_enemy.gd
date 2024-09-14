@@ -22,7 +22,7 @@ var is_dead:bool=false
 @export var base_damage:int=5
 @export var knockback_modifier:float=25.0
 @export var attack_cooldown:float=2.0
-@export var attack_range:float=15.0
+@export var attack_range:float=12.5
 
 var rng:RandomNumberGenerator=RandomNumberGenerator.new()
 var default_pitch:float=2.0

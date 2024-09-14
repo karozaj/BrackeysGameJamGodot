@@ -14,6 +14,7 @@ LMB - shoot/destroy blocks
 RMB - place blocks
 1-5/Scroll wheel - select weapon
 E - open ammo shop (build mode only)
+Esc/P - pause menu
 
 This game was made for Brackeys Game Jam 2024.2 on itch.io
 

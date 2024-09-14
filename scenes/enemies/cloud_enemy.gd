@@ -16,14 +16,15 @@ var death_sound:AudioStream=load("res://assets/audio/enemies/death_grunt.ogg")
 var lightning_sprite_height:float
 var rng:RandomNumberGenerator=RandomNumberGenerator.new()
 
-const SPEED = 10.0
+const SPEED = 12.0
 
 var can_attack:bool=true
 var is_dead:bool=false
 @export var health:int=100
 @export var base_damage:int=95
-@export var attack_cooldown:float=2.5
-@export var attack_range:float=0.35
+@export var attack_cooldown:float=1.0
+@export var attack_range:float=0.5
+@export var height_over_target:float=7.5
 @export var default_pitch=1.5
 
 @onready var player:CharacterBody3D=get_tree().get_first_node_in_group("player")
@@ -41,17 +42,22 @@ func _physics_process(_delta: float) -> void:
 	cloud_sprite.look_at(player.global_position)
 	lightning_sprite.look_at(Vector3(player.global_position.x,lightning_sprite.global_position.y,player.global_position.z))
 	
+	if player.weapon_manager.has_no_ammo()==true:
+		height_over_target=4.5
+	else:
+		height_over_target=7.5
+	
 	var current_location=global_transform.origin
-	var next_location=player.global_position+Vector3(0,7.5,0)
+	var next_location=player.global_position+Vector3(0,height_over_target,0)
 	if Vector2(current_location.x,current_location.z).distance_to(Vector2(next_location.x,next_location.z))>attack_range and animation_player.is_playing()==false:
 		var new_velocity=(next_location-current_location).normalized()*SPEED
-		velocity.x=velocity.move_toward(new_velocity,0.1).x
-		velocity.y=velocity.move_toward(new_velocity,0.1).y
-		velocity.z=velocity.move_toward(new_velocity,0.1).z
+		velocity.x=velocity.move_toward(new_velocity,0.125).x
+		velocity.y=velocity.move_toward(new_velocity,0.125).y
+		velocity.z=velocity.move_toward(new_velocity,0.125).z
 	else:
-		velocity.x=velocity.move_toward(Vector3(0,0,0),0.75).x
-		velocity.y=velocity.move_toward(Vector3(0,0,0),0.75).y
-		velocity.z=velocity.move_toward(Vector3(0,0,0),0.75).z
+		velocity.x=velocity.move_toward(Vector3(0,0,0),0.5).x
+		velocity.y=velocity.move_toward(Vector3(0,0,0),0.5).y
+		velocity.z=velocity.move_toward(Vector3(0,0,0),0.5).z
 		if can_attack:
 			animation_player.play("attack")
 			can_attack=false

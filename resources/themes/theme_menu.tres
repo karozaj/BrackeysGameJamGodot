@@ -87,8 +87,10 @@ corner_radius_bottom_left = 4
 corner_detail = 6
 
 [resource]
+Button/constants/outline_size = 2
 Button/font_sizes/font_size = 20
 Button/fonts/font = ExtResource("1_e6yuf")
+CheckButton/constants/outline_size = 4
 CheckButton/font_sizes/font_size = 20
 CheckButton/fonts/font = ExtResource("1_e6yuf")
 HBoxContainer/constants/separation = 10
@@ -102,5 +104,6 @@ HSlider/styles/grabber_area = SubResource("StyleBoxFlat_otma1")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_nbg0m")
 HSlider/styles/slider = SubResource("StyleBoxFlat_n7vba")
 Label/colors/font_shadow_color = Color(0, 0, 0, 0.588235)
+Label/constants/outline_size = 2
 Label/font_sizes/font_size = 20
 Label/fonts/font = ExtResource("1_e6yuf")

@@ -23,7 +23,7 @@ var weapon_select_animations:Array=["axe_select","pistol_select", "shotgun_selec
 var is_block_mode_active:bool=false
 var can_build:bool=false
 var can_shoot:bool=true
-var ammo:Dictionary={"block_weapon":0, "axe":"infinite", "pistol":150, "shotgun":30, "chaingun":300,"rocket_launcher":10}
+var ammo:Dictionary={"block_weapon":0, "axe":"infinite", "pistol":150, "shotgun":30, "chaingun":350,"rocket_launcher":10}
 var current_weapon
 var current_weapon_index:int
 var is_pulling_out_weapon:bool=false
@@ -189,3 +189,8 @@ func get_current_ammo()->String:
 func add_blocks(how_many:int):
 	ammo["block_weapon"]+=how_many
 	send_ammo_info.emit(str(ammo["block_weapon"]))
+
+func has_no_ammo()->bool:
+	if ammo["pistol"]==0 and ammo["shotgun"]==0 and ammo["chaingun"]==0 and ammo["rocket_launcher"]==0:
+		return true
+	return false

@@ -13,14 +13,14 @@ var buttons:Array[Button]
 @export var health_cost:int=1
 @export var pistol_ammo_cost:int=2
 @export var shotgun_ammo_cost:int=5
-@export var machine_gun_ammo_cost:int=15
-@export var rocket_launcher_ammo_cost:int=20
+@export var machine_gun_ammo_cost:int=10
+@export var rocket_launcher_ammo_cost:int=15
 
 @export_group("Crafted resource count")
 @export var health_count:int=25
-@export var pistol_ammo_count:int=25
+@export var pistol_ammo_count:int=30
 @export var shotgun_ammo_count:int=15
-@export var machine_gun_ammo_count:int=50
+@export var machine_gun_ammo_count:int=75
 @export var rocket_launcher_ammo_count:int=20
 	
 var costs:Array[int]
@@ -31,6 +31,7 @@ var ammo_dictionary:Dictionary
 var health_points:int
 
 func _ready() -> void:
+	Input.mouse_mode=Input.MOUSE_MODE_CONFINED
 	buttons=[health_button, pistol_button, shotgun_button, machine_gun_button, rocket_launcher_button]
 	costs=[health_cost, pistol_ammo_cost, shotgun_ammo_cost, machine_gun_ammo_cost, rocket_launcher_ammo_cost]
 	purchasable_counts=[health_count, pistol_ammo_count, shotgun_ammo_count, machine_gun_ammo_count, rocket_launcher_ammo_count]

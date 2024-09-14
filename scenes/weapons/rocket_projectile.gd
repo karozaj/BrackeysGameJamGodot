@@ -2,7 +2,6 @@ extends Area3D
 
 
 @onready var timer:Timer=$projectile_lifetime_timer
-@onready var ray:RayCast3D=$RayCast3D
 @onready var audio_player:AudioStreamPlayer3D=$AudioStreamPlayer3D
 @onready var explosion_area:Area3D=$Area3D
 
@@ -13,7 +12,10 @@ var explosion_radius:float
 @export var max_explosion_damage:float=200.0
 @export var direct_damage:float=150.0
 
+var rays:Array[RayCast3D]
+
 func _ready() -> void:
+	rays=[$RayCast3D,$RayCast3D2,$RayCast3D3,$RayCast3D4,$RayCast3D5,$RayCast3D6,$RayCast3D7,$RayCast3D8,$RayCast3D9]
 	timer.start()
 	explosion_radius=$Area3D/CollisionShape3D.shape.radius
 
@@ -27,9 +29,10 @@ func _on_body_entered(body: Node3D) -> void:
 	flying=false
 	if body.has_method("damage"):
 		body.damage(direct_damage,global_position)
-	if ray.is_colliding():
-		if ray.get_collider().has_method("destroy_block"):
-			ray.get_collider().destroy_block(ray.get_collision_point()-ray.get_collision_normal()/2)
+	for ray in rays:
+		if ray.is_colliding():
+			if ray.get_collider().has_method("destroy_block"):
+				ray.get_collider().destroy_block(ray.get_collision_point()-ray.get_collision_normal()/2)
 		#elif ray.get_collider().has_method("damage"):
 			#ray.get_collider().damage(direct_damage,global_position)
 	explode()
