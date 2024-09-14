@@ -12,7 +12,7 @@ var attack_sound:AudioStream=load("res://assets/audio/enemies/rat_attack.ogg")
 var rng:RandomNumberGenerator=RandomNumberGenerator.new()
 var default_pitch:float=1.5
 
-const SPEED = 7.5
+const SPEED = 8.0
 const JUMP_VELOCITY = 4.5
 
 

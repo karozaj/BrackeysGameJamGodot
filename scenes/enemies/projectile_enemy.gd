@@ -14,7 +14,7 @@ var attack_sound:AudioStream=load("res://assets/audio/gun_sfx/rocket_launcher.og
 var projectile_scene=load("res://scenes/weapons/projectile.tscn")
 var projectile
 
-const SPEED = 3.0
+const SPEED = 4.0
 
 var can_attack:bool=true
 var is_dead:bool=false

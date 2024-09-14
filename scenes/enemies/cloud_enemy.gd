@@ -21,8 +21,8 @@ const SPEED = 10.0
 var can_attack:bool=true
 var is_dead:bool=false
 @export var health:int=100
-@export var base_damage:int=85
-@export var attack_cooldown:float=3.5
+@export var base_damage:int=95
+@export var attack_cooldown:float=2.5
 @export var attack_range:float=0.35
 @export var default_pitch=1.5
 
@@ -33,7 +33,6 @@ func _ready() -> void:
 	cooldown_timer.wait_time=attack_cooldown
 	lightning_sprite_height=64*lightning_sprite.pixel_size
 	print(lightning_sprite_height)
-	#global_position+=Vector3(0,1,0)
 
 func _physics_process(_delta: float) -> void:
 	if player==null or is_dead:
