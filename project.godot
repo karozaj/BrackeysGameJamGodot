@@ -119,6 +119,7 @@ sprint={
 3d_physics/layer_2="ground"
 3d_physics/layer_3="enemies"
 3d_physics/layer_4="projectiles"
+3d_physics/layer_6="world_boundary"
 
 [rendering]
 

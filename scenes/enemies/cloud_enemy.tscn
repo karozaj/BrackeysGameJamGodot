@@ -156,7 +156,7 @@ _data = {
 
 [node name="CloudEnemy" type="CharacterBody3D"]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 47
 script = ExtResource("1_udpnm")
 
 [node name="cloud_sprite" type="Sprite3D" parent="."]

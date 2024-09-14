@@ -764,7 +764,7 @@ height = 1.7
 
 [node name="ProjectileEnemy" type="CharacterBody3D"]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 47
 motion_mode = 1
 script = ExtResource("1_xklvb")
 

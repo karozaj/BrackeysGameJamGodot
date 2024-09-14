@@ -155,7 +155,7 @@ _data = {
 
 [node name="RatEnemy" type="CharacterBody3D"]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 47
 script = ExtResource("1_1883m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

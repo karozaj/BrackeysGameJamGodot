@@ -68,8 +68,6 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed('exit'):
 		var pause_menu=preload("res://scenes/ui/pause_menu.tscn").instantiate()
 		$CanvasLayer.add_child(pause_menu)
-		#get_tree().quit()
-
 
 func _physics_process(delta):
 	if is_dead:

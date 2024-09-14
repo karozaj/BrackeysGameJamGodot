@@ -818,7 +818,7 @@ height = 1.7
 
 [node name="HitscanEnemy" type="CharacterBody3D"]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 47
 script = ExtResource("1_ab8p6")
 
 [node name="Armature" type="Node3D" parent="."]

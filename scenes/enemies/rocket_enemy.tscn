@@ -764,7 +764,7 @@ height = 4.0
 
 [node name="RocketEnemy" type="CharacterBody3D"]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 47
 script = ExtResource("1_nlcyt")
 
 [node name="Armature" type="Node3D" parent="."]

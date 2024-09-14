@@ -22,7 +22,6 @@ var can_attack:bool=true
 var is_dead:bool=false
 @export var health:int=100
 @export var base_damage:int=85
-@export var knockback_modifier:float=15.0
 @export var attack_cooldown:float=3.5
 @export var attack_range:float=0.35
 @export var default_pitch=1.5
@@ -70,7 +69,6 @@ func damage(damage_points:int, _source_position:Vector3)->void:
 		health-=damage_points
 		if health<=0:
 			die()
-	
 	
 func destroy_self()->void:
 	queue_free()

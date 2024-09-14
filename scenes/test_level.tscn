@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cnm4medkvxyo6"]
+[gd_scene load_steps=10 format=3 uid="uid://cnm4medkvxyo6"]
 
 [ext_resource type="PackedScene" uid="uid://cl0wa8s1cow4w" path="res://scenes/player.tscn" id="1_5k5jb"]
 [ext_resource type="Script" path="res://scenes/test_level.gd" id="1_x7tvp"]
 [ext_resource type="PackedScene" uid="uid://d4bfv1qbb8cay" path="res://scenes/block_gridmap.tscn" id="2_sc4rb"]
-[ext_resource type="PackedScene" uid="uid://l3qg27r7x5or" path="res://scenes/enemies/rocket_enemy.tscn" id="5_qfl1k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tqfow"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -64,6 +63,3 @@ collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/MeshInstance3D/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_nd3oq")
-
-[node name="RocketEnemy" parent="." instance=ExtResource("5_qfl1k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.7679, 2.62393, -2.41224)

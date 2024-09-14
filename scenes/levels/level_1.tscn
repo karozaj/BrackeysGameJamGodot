@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dcda1vj5d7bv3"]
+[gd_scene load_steps=13 format=3 uid="uid://dcda1vj5d7bv3"]
 
 [ext_resource type="PackedScene" uid="uid://d4bfv1qbb8cay" path="res://scenes/block_gridmap.tscn" id="1_mhjv4"]
 [ext_resource type="Texture2D" uid="uid://dy73dshlbpo8n" path="res://assets/img/sky.png" id="1_qpnvk"]
 [ext_resource type="Script" path="res://scenes/levels/level_1.gd" id="1_ydqpp"]
 [ext_resource type="PackedScene" uid="uid://cl0wa8s1cow4w" path="res://scenes/player.tscn" id="2_lgj4s"]
 [ext_resource type="MeshLibrary" uid="uid://bq6qw487ephoq" path="res://mesh_libraries/arena_floor.tres" id="4_knhre"]
+[ext_resource type="MeshLibrary" uid="uid://b3otkuwtli2lx" path="res://mesh_libraries/arena_wall.tres" id="6_8vtuv"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_kdoao"]
 panorama = ExtResource("1_qpnvk")
@@ -20,9 +21,17 @@ sky = SubResource("Sky_8jpm5")
 tonemap_mode = 1
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_lhnvn"]
+vertices = PackedVector3Array(31.75, 0.5, 16.25, 16.25, 0.5, -31.75, -31.75, 0.5, -16.25, -31.75, 0.5, 16.25, -16.25, 0.5, 31.75, 16.25, 0.5, 31.75, -16.25, 0.5, -31.75, 31.75, 0.5, -16.25)
+polygons = [PackedInt32Array(5, 4, 0), PackedInt32Array(0, 4, 3), PackedInt32Array(0, 3, 2), PackedInt32Array(0, 2, 1), PackedInt32Array(2, 6, 1), PackedInt32Array(1, 7, 0)]
 agent_height = 0.75
 agent_radius = 0.25
 agent_max_climb = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yp8hx"]
+size = Vector3(31, 14, 31)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_1e00l"]
+plane = Plane(0, -1, 0, 0)
 
 [node name="level_1" type="Node3D"]
 script = ExtResource("1_ydqpp")
@@ -59,3 +68,34 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Player" parent="." instance=ExtResource("2_lgj4s")]
+
+[node name="wall_gridmap" type="GridMap" parent="."]
+mesh_library = ExtResource("6_8vtuv")
+cell_size = Vector3(8, 1, 8)
+cell_center_x = false
+cell_center_y = false
+cell_center_z = false
+collision_layer = 2
+collision_mask = 5
+data = {
+"cells": PackedInt32Array(65532, 1, 1048576, 65532, 65535, 1048576, 1, 4, 655360, 65535, 4, 655360, 65533, 3, 1048577, 65533, 65533, 1, 65535, 65532, 0, 1, 65532, 0, 3, 65533, 1441793, 4, 65535, 1441792, 4, 1, 1441792, 3, 3, 655361)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="building_area" type="Area3D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="building_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
+shape = SubResource("BoxShape3D_yp8hx")
+
+[node name="world_boundary" type="StaticBody3D" parent="."]
+collision_layer = 32
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="world_boundary"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 0)
+shape = SubResource("WorldBoundaryShape3D_1e00l")
+
+[connection signal="body_entered" from="building_area" to="." method="_on_building_area_body_entered"]
+[connection signal="body_exited" from="building_area" to="." method="_on_building_area_body_exited"]

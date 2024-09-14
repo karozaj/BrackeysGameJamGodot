@@ -21,6 +21,7 @@ var rocket_launcher
 var weapons:Array
 var weapon_select_animations:Array=["axe_select","pistol_select", "shotgun_select", "chaingun_select", "rocket_launcher_select"]
 var is_block_mode_active:bool=false
+var can_build:bool=false
 var can_shoot:bool=true
 var ammo:Dictionary={"block_weapon":20, "axe":"infinite", "pistol":10, "shotgun":10, "chaingun":100,"rocket_launcher":10}
 var current_weapon
@@ -174,7 +175,7 @@ func handle_block_interaction()->void:
 			ammo["block_weapon"]+=1
 			send_ammo_info.emit(str(ammo[current_weapon.name]))
 			print("block destroyed")
-	if Input.is_action_just_pressed("place_block"):
+	if Input.is_action_just_pressed("place_block") and can_build:
 		if ammo["block_weapon"]>0:
 			if current_weapon.place_block()==true:
 				ammo["block_weapon"]-=1
