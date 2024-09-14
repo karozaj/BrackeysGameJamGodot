@@ -23,7 +23,7 @@ var weapon_select_animations:Array=["axe_select","pistol_select", "shotgun_selec
 var is_block_mode_active:bool=false
 var can_build:bool=false
 var can_shoot:bool=true
-var ammo:Dictionary={"block_weapon":20, "axe":"infinite", "pistol":10, "shotgun":10, "chaingun":100,"rocket_launcher":10}
+var ammo:Dictionary={"block_weapon":0, "axe":"infinite", "pistol":150, "shotgun":30, "chaingun":300,"rocket_launcher":10}
 var current_weapon
 var current_weapon_index:int
 var is_pulling_out_weapon:bool=false

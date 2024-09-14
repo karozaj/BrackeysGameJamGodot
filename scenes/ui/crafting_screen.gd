@@ -77,7 +77,10 @@ func craft_resource(button_name:String):
 	print(button_name)
 	if button_name=="health_button":
 		ammo_dictionary["block_weapon"]-=costs[0]
-		health_points+=purchasable_counts[0]
+		if health_points<=200-purchasable_counts[0]:
+			health_points+=purchasable_counts[0]
+		else:
+			health_points=200
 		
 	elif button_name=="pistol_button":
 		ammo_dictionary["block_weapon"]-=costs[1]

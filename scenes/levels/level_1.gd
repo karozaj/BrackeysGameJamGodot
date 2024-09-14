@@ -9,13 +9,13 @@ var rng:RandomNumberGenerator=RandomNumberGenerator.new()
 var spawners:Array
 var enemy_spawn_chance:Dictionary
 var current_wave:int=0
-var max_selector:int=25
+var max_selector:int=60
 var is_battle_mode_active:bool=false
 var block_reward:int=25
 
 func _ready() -> void:
 	Global.current_map=self
-	enemy_spawn_chance={"rat":35, "projectile":62, "hitscan":70, "cloud":95,"rocket":100}
+	enemy_spawn_chance={"rat":35, "projectile":62, "hitscan":70, "cloud":93,"rocket":100}
 	spawners=[$enemy_spawner,$enemy_spawner2,$enemy_spawner3,$enemy_spawner4]
 	begin_preparation_phase()
 
@@ -23,28 +23,10 @@ func _process(_delta: float) -> void:
 	if player!=null:
 		get_tree().call_group("enemy","update_target_location",player.global_transform.origin)
 	if is_battle_mode_active==true:
-		print(get_tree().get_node_count_in_group("enemy"))
 		if get_tree().get_node_count_in_group("enemy")<=0:
 			begin_preparation_phase()
 	else:
 		player.game_state_display.update_time_display(str(round(preparation_phase_timer.time_left)))
-	#if Input.is_action_just_pressed("TEST"):
-		#spawn_wave()
-		#var wave:Array[String]=[]
-		##for x in range(0,4):
-			##wave.append("rat")
-		#for x in range(0,18):
-			#wave.append("rat")
-		##for x in range(0,4):
-			##wave.append("projectile")
-		##for x in range(0,4):
-			##wave.append("rocket")
-		#var wave:Array[String]=generate_wave()
-		#$enemy_spawner.spawn_wave(wave)
-		#$enemy_spawner2.spawn_wave(wave)
-		#$enemy_spawner3.spawn_wave(wave)
-		#$enemy_spawner4.spawn_wave(wave)
-		#$enemy_spawner.spawn_enemy(preload("res://scenes/enemies/projectile_enemy.tscn"), $enemy_spawner.global_position)
 
 func spawn_wave():
 	var new_wave:Array[String]=generate_wave()
@@ -57,8 +39,16 @@ func generate_wave()->Array[String]:
 	var wave:Array[String]
 	wave=[]
 	var wave_size:int
-	if current_wave<=3:
+	if current_wave<=1:
 		max_selector=60
+		wave_size=12
+		block_reward=25
+	elif current_wave<=2:
+		max_selector=70
+		wave_size=12
+		block_reward=25
+	elif current_wave<=3:
+		max_selector=90
 		wave_size=12
 		block_reward=25
 	elif current_wave<=5:
@@ -84,6 +74,7 @@ func generate_wave()->Array[String]:
 		
 	for i in range(0,wave_size):
 		var selector=rng.randi_range(0,max_selector)
+		print("selector", selector)
 		if selector<=enemy_spawn_chance["rat"]:
 			wave.append("rat")
 		elif selector<=enemy_spawn_chance["projectile"]:

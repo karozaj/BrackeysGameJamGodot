@@ -8,7 +8,7 @@ var default_pitch:float=1.0
 @export var weapon_range:float=15.0
 var rng=RandomNumberGenerator.new()
 var cooldown:float=.5
-var base_damage:int=30
+var base_damage:int=50
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

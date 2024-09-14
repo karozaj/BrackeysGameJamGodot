@@ -9,7 +9,6 @@ var projectile
 
 var rng=RandomNumberGenerator.new()
 var cooldown:float=1.0
-var base_damage:int=75
 
 func shoot():
 	animation_player.play("shoot")

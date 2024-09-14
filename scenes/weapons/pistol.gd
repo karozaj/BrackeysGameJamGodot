@@ -7,7 +7,7 @@ extends Node3D
 var default_pitch:float=1.0
 var rng=RandomNumberGenerator.new()
 var cooldown:float=.25
-var base_damage:int=15
+var base_damage:int=20
 
 func allign_rays(ray_position:Vector3):
 	ray.global_position=ray_position

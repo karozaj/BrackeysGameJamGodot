@@ -10,7 +10,7 @@ var flying:bool=true
 var is_exploding:bool=false
 @export var projectile_speed:float=15.0
 var explosion_radius:float
-@export var max_explosion_damage:float=125.0
+@export var max_explosion_damage:float=200.0
 @export var direct_damage:float=150.0
 
 func _ready() -> void:
@@ -21,15 +21,17 @@ func _physics_process(delta: float) -> void:
 	if flying:
 		position-=transform.basis*Vector3(0,0,projectile_speed)*delta
 			
-func _on_body_entered(_body: Node3D) -> void:
+func _on_body_entered(body: Node3D) -> void:
 	set_deferred("monitoring",false)
 	$Sprite3D.visible=false
 	flying=false
+	if body.has_method("damage"):
+		body.damage(direct_damage,global_position)
 	if ray.is_colliding():
 		if ray.get_collider().has_method("destroy_block"):
 			ray.get_collider().destroy_block(ray.get_collision_point()-ray.get_collision_normal()/2)
-		elif ray.get_collider().has_method("damage"):
-			ray.get_collider().damage(direct_damage,global_position)
+		#elif ray.get_collider().has_method("damage"):
+			#ray.get_collider().damage(direct_damage,global_position)
 	explode()
 	$AnimationPlayer.play("explode")
 
