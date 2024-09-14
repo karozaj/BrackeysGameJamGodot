@@ -33,6 +33,7 @@ func _ready() -> void:
 	cooldown_timer.wait_time=attack_cooldown
 	lightning_sprite_height=64*lightning_sprite.pixel_size
 	print(lightning_sprite_height)
+	#global_position+=Vector3(0,1,0)
 
 func _physics_process(_delta: float) -> void:
 	if player==null or is_dead:

@@ -29,7 +29,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _ready() -> void:
 	add_to_group("enemy")
 	cooldown_timer.wait_time=attack_cooldown
-
+	
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * delta
