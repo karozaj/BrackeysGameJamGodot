@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cl0wa8s1cow4w"]
+[gd_scene load_steps=14 format=3 uid="uid://cl0wa8s1cow4w"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_uq8ue"]
 [ext_resource type="PackedScene" uid="uid://do81inxv6fsfr" path="res://scenes/weapons/weapon_manager.tscn" id="2_wudfx"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://7p6e20i3x31f" path="res://assets/audio/footstep1.ogg" id="3_jvx5b"]
 [ext_resource type="Texture2D" uid="uid://bx7yud72e5q70" path="res://assets/img/pain_overlay.png" id="3_ws2oj"]
 [ext_resource type="AudioStream" uid="uid://ck532s1x561eu" path="res://assets/audio/jump_land.ogg" id="4_lyeli"]
+[ext_resource type="PackedScene" uid="uid://di2dneqncibhe" path="res://scenes/ui/game_state_display.tscn" id="6_3hndn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4qd1p"]
 radius = 0.35
@@ -192,6 +193,8 @@ size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
 [node name="AmmoDisplay" parent="CanvasLayer" instance=ExtResource("3_7lydq")]
+
+[node name="GameStateDisplay" parent="CanvasLayer" instance=ExtResource("6_3hndn")]
 
 [node name="footstep_audio_player" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_jvx5b")

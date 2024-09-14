@@ -34,19 +34,15 @@ func spawn_enemy(type_name:String,spawn_point_index:int)->void:
 func spawn_wave(wave:Array[String]):
 	while wave.size()>18:
 		wave.pop_back()
-	print(wave.size())
 	
 	wave_spawn_indexes=[]
 	for i in range(0,wave.size()):
 		wave_spawn_indexes.append(i)
 	wave_spawn_indexes.shuffle()
-	print(wave_spawn_indexes)
-	print(wave_spawn_indexes.size())
 	
 	current_wave=[]
 	for i in range(0,wave.size()):
 		current_wave.append([wave[i],wave_spawn_indexes[i]])
-	print(current_wave)
 	
 	current_subwave_index=0
 	subwaves=[[],[],[],[],[],[]]

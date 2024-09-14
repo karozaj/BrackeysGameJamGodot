@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://dcda1vj5d7bv3"]
+[gd_scene load_steps=15 format=3 uid="uid://dcda1vj5d7bv3"]
 
 [ext_resource type="PackedScene" uid="uid://d4bfv1qbb8cay" path="res://scenes/block_gridmap.tscn" id="1_mhjv4"]
 [ext_resource type="Texture2D" uid="uid://dy73dshlbpo8n" path="res://assets/img/sky.png" id="1_qpnvk"]
 [ext_resource type="Script" path="res://scenes/levels/level_1.gd" id="1_ydqpp"]
 [ext_resource type="PackedScene" uid="uid://cl0wa8s1cow4w" path="res://scenes/player.tscn" id="2_lgj4s"]
+[ext_resource type="AudioStream" uid="uid://cm82dcs1cl347" path="res://assets/audio/enemies/thunder.ogg" id="2_nnsgb"]
 [ext_resource type="MeshLibrary" uid="uid://bq6qw487ephoq" path="res://mesh_libraries/arena_floor.tres" id="4_knhre"]
 [ext_resource type="MeshLibrary" uid="uid://b3otkuwtli2lx" path="res://mesh_libraries/arena_wall.tres" id="6_8vtuv"]
 [ext_resource type="PackedScene" uid="uid://da0mhxv14o0vn" path="res://scenes/enemy_spawner.tscn" id="7_usv64"]
@@ -37,6 +38,12 @@ plane = Plane(0, -1, 0, 0)
 [node name="level_1" type="Node3D"]
 script = ExtResource("1_ydqpp")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_nnsgb")
+volume_db = -10.0
+pitch_scale = 0.75
+bus = &"SFX"
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qw0m1")
 
@@ -45,7 +52,12 @@ transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -
 shadow_enabled = true
 
 [node name="preparation_phase_timer" type="Timer" parent="."]
-wait_time = 60.0
+wait_time = 5.0
+one_shot = true
+
+[node name="enemy_spawn_timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_lhnvn")
@@ -71,6 +83,7 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("2_lgj4s")]
+metadata/_edit_lock_ = true
 
 [node name="wall_gridmap" type="GridMap" parent="."]
 mesh_library = ExtResource("6_8vtuv")
@@ -107,15 +120,21 @@ metadata/_edit_lock_ = true
 
 [node name="enemy_spawner" parent="." instance=ExtResource("7_usv64")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -26)
+metadata/_edit_lock_ = true
 
 [node name="enemy_spawner2" parent="." instance=ExtResource("7_usv64")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 26)
+metadata/_edit_lock_ = true
 
 [node name="enemy_spawner3" parent="." instance=ExtResource("7_usv64")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 25.9997, 0, 0)
+metadata/_edit_lock_ = true
 
 [node name="enemy_spawner4" parent="." instance=ExtResource("7_usv64")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -25.9997, 0, 0)
+metadata/_edit_lock_ = true
 
+[connection signal="timeout" from="preparation_phase_timer" to="." method="_on_preparation_phase_timer_timeout"]
+[connection signal="timeout" from="enemy_spawn_timer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="body_entered" from="building_area" to="." method="_on_building_area_body_entered"]
 [connection signal="body_exited" from="building_area" to="." method="_on_building_area_body_exited"]

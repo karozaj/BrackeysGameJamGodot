@@ -48,11 +48,11 @@ func _ready() -> void:
 	
 func _process(_delta: float) -> void:
 	#TODO: DELETE TEST ACTION
-	if Input.is_action_just_pressed("TEST"):
-		if is_block_mode_active:
-			reset_weapon_selection()
-		else:
-			select_block_weapon()
+	#if Input.is_action_just_pressed("TEST"):
+		#if is_block_mode_active:
+			#reset_weapon_selection()
+		#else:
+			#select_block_weapon()
 			
 	if is_parent_dead==false and is_pulling_out_weapon==false:
 		if is_block_mode_active==false:
@@ -174,16 +174,18 @@ func handle_block_interaction()->void:
 		if current_weapon.destroy_block()==true:
 			ammo["block_weapon"]+=1
 			send_ammo_info.emit(str(ammo[current_weapon.name]))
-			print("block destroyed")
 	if Input.is_action_just_pressed("place_block") and can_build:
 		if ammo["block_weapon"]>0:
 			if current_weapon.place_block()==true:
 				ammo["block_weapon"]-=1
 				send_ammo_info.emit(str(ammo[current_weapon.name]))
-				print("block placed")
 		else:
 			audio_player.stream=sound_no_ammo
 			audio_player.play()
 
 func get_current_ammo()->String:
 	return str(ammo[current_weapon.name])
+
+func add_blocks(how_many:int):
+	ammo["block_weapon"]+=how_many
+	send_ammo_info.emit(str(ammo["block_weapon"]))

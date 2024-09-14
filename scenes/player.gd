@@ -16,6 +16,7 @@ const JUMP_VELOCITY = 6.0
 @onready var jump_buffer_timer:Timer=$jump_buffer_timer
 @onready var ammo_display=$CanvasLayer/AmmoDisplay
 @onready var hurt_animation_player=$hurt_animation
+@onready var game_state_display=$CanvasLayer/GameStateDisplay
 
 var speed:float=SPEED
 var movement_lerp_val:float=0.15
@@ -39,12 +40,11 @@ func _ready():
 	update_ammo_counter(weapon_manager.get_current_ammo())
 
 func _unhandled_input(event):
-	#TODO DEBUG ONLY DELETE LATER
-	#if Input.is_action_just_pressed("TEST"):
-		#create_crafting_menu()
-	#
 	if is_dead:
 		return
+	
+	if Input.is_action_just_pressed("open_ammo_shop") and weapon_manager.is_block_mode_active==true:
+		create_crafting_menu()
 		
 	if event is InputEventMouseMotion:
 		pivot.rotate_y(-event.relative.x * SENSITIVITY)
@@ -152,6 +152,7 @@ func knockback(damage_points:int,source:Vector3)->void:
 	
 func die()->void:
 	if is_dead==false:
+		MusicPlayer.stop_battle_music()
 		weapon_manager.is_parent_dead=true
 		is_dead=true
 		hurt_animation_player.play("death")
