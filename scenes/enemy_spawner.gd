@@ -18,7 +18,7 @@ var subwaves:Array
 var current_subwave_index:int=0
 
 func _ready() -> void:
-	enemy_dict={"rat":rat_enemy_scene, "hitscan":hitscan_enemy_scene,"projectile":projectile_enemy_scene, "cloud":cloud_enemy_scene,"rocket":rocket_enemy_scene}
+	enemy_dict={"rat":rat_enemy_scene,"projectile":projectile_enemy_scene,"hitscan":hitscan_enemy_scene, "cloud":cloud_enemy_scene,"rocket":rocket_enemy_scene}
 	spawn_spots=[$spawn_spot,$spawn_spot2,$spawn_spot3,$spawn_spot4,$spawn_spot5,$spawn_spot6,$spawn_spot7,$spawn_spot8,$spawn_spot9,$spawn_spot10,$spawn_spot11,$spawn_spot12,$spawn_spot13,$spawn_spot14,$spawn_spot15,$spawn_spot16,$spawn_spot17,$spawn_spot18]
 
 func spawn_enemy(type_name:String,spawn_point_index:int)->void:
@@ -49,7 +49,7 @@ func spawn_wave(wave:Array[String]):
 	print(current_wave)
 	
 	current_subwave_index=0
-	subwaves=[[],[],[],[]]
+	subwaves=[[],[],[],[],[],[]]
 	for i in range(0,subwaves.size()):
 		for j in range(0,3):
 			if current_wave.size()>0:
@@ -64,5 +64,5 @@ func _on_spawn_timer_timeout() -> void:
 		var current_enemy_spawn_point_index:int=subwaves[current_subwave_index][i][1]
 		spawn_enemy(current_enemy, current_enemy_spawn_point_index)
 	current_subwave_index+=1
-	if current_subwave_index<4:
+	if current_subwave_index<6:
 		spawn_timer.start()
