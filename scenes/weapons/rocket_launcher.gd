@@ -9,16 +9,16 @@ var projectile
 
 var rng=RandomNumberGenerator.new()
 var cooldown:float=1.0
-var base_damage:int=75
 
 func shoot():
 	animation_player.play("shoot")
 	projectile=projectile_scene.instantiate()
+	#this is so that the rocket doesnt collide with the player when they shoot downward
+	projectile.set_collision_mask_value(1,false)
 	projectile.position=$Cube_001/tip.global_position
 	projectile.transform.basis=$RayCast3D.global_transform.basis
 	if Global.current_map!=null:
 		Global.current_map.add_child(projectile)
-	#get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().add_child(projectile_instance)
 
 func play_shooting_sound():
 	audio_player.pitch_scale=default_pitch+rng.randf_range(-.1,.05)

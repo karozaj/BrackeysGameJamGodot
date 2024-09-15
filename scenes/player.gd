@@ -3,7 +3,7 @@ extends CharacterBody3D
 const SENSITIVITY=0.004
 const SPEED = 5.0
 const SPRINT_SPEED=10.0
-const JUMP_VELOCITY = 6.0
+const JUMP_VELOCITY = 6.5
 
 @onready var camera:Camera3D=$Pivot/Camera3D
 @onready var gun_camera:Camera3D=$Pivot/GunCamera3D
@@ -16,6 +16,7 @@ const JUMP_VELOCITY = 6.0
 @onready var jump_buffer_timer:Timer=$jump_buffer_timer
 @onready var ammo_display=$CanvasLayer/AmmoDisplay
 @onready var hurt_animation_player=$hurt_animation
+@onready var game_state_display=$CanvasLayer/GameStateDisplay
 
 var speed:float=SPEED
 var movement_lerp_val:float=0.15
@@ -30,6 +31,7 @@ var health:int=100
 var is_dead:bool=false
 
 func _ready():
+	Global.player=self
 	add_to_group("player")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	RenderingServer.viewport_attach_camera($CanvasLayer/SubViewportContainer/SubViewport.get_viewport_rid(),gun_camera.get_camera_rid())
@@ -38,6 +40,12 @@ func _ready():
 	update_ammo_counter(weapon_manager.get_current_ammo())
 
 func _unhandled_input(event):
+	if is_dead:
+		return
+	
+	if Input.is_action_just_pressed("open_ammo_shop") and weapon_manager.is_block_mode_active==true:
+		create_crafting_menu()
+		
 	if event is InputEventMouseMotion:
 		pivot.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
@@ -46,6 +54,9 @@ func _unhandled_input(event):
 		gun_camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 		
 func _process(_delta: float) -> void:
+	if is_dead:
+		return
+		
 	if is_on_floor() and abs(Vector2(velocity.x,velocity.z).length())>=2.0:
 		if footstep_audio_player.playing==false:
 			footstep_audio_player.pitch_scale=1.0+(abs(Vector2(velocity.x,velocity.z).length())-SPEED)/SPRINT_SPEED
@@ -57,17 +68,16 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed('exit'):
 		var pause_menu=preload("res://scenes/ui/pause_menu.tscn").instantiate()
 		$CanvasLayer.add_child(pause_menu)
-		#get_tree().quit()
-
 
 func _physics_process(delta):
+	if is_dead:
+		return
+		
 	if Input.is_action_pressed("sprint"):
 		speed=SPRINT_SPEED
 	else:
 		speed=SPEED
-	
-	#if not is_on_floor():
-		#velocity += get_gravity() * delta
+
 	if not is_on_floor():
 		if jump_available:
 			if coyote_timer.is_stopped():
@@ -115,29 +125,50 @@ func _on_jump_buffer_timer_timeout() -> void:
 func _on_coyote_time_timer_timeout() -> void:
 	jump_available=false
 
-func update_ammo_counter(ammo_info:String):
+func update_ammo_counter(ammo_info:String)->void:
 	ammo_display.update_ammo_counter(ammo_info)
 	
-func heal(heal_points:int):
-	if health+heal_points>125:
-		health=125
+func heal(heal_points:int)->void:
+	if health+heal_points>200:
+		health=200
 	else:
 		health+=heal_points
-	ammo_display.update_health_counter()
-	
-	
-func damage(damage_points:int, source_position:Vector3):
-	health-=damage_points
-	knockback(damage_points,source_position)
-	hurt_animation_player.play("hurt")
 	ammo_display.update_health_counter(health)
-	if health<=0:
-		die()
+	
+	
+func damage(damage_points:int, source_position:Vector3)->void:
+	if is_dead==false:
+		health-=damage_points
+		knockback(damage_points,source_position)
+		hurt_animation_player.play("hurt")
+		ammo_display.update_health_counter(health)
+		if health<=0:
+			die()
 
-func knockback(damage_points:int,source:Vector3):
+func knockback(damage_points:int,source:Vector3)->void:
 	var knockback_direction:Vector3=global_position-source
 	knockback_direction=knockback_direction.normalized()
 	velocity+=knockback_direction*damage_points/100*knockback_modifier
 	
-func die():
-	is_dead=true
+func die()->void:
+	if is_dead==false:
+		MusicPlayer.stop_battle_music()
+		weapon_manager.is_parent_dead=true
+		is_dead=true
+		hurt_animation_player.play("death")
+
+func create_crafting_menu()->void:
+		var crafting_menu=preload("res://scenes/ui/crafting_screen.tscn").instantiate()
+		$CanvasLayer.add_child(crafting_menu)
+		crafting_menu.send_ammo_info.connect(update_resource_info)
+		crafting_menu.update_resource_counts(weapon_manager.ammo,health)
+
+func create_death_menu()->void:
+		var death_menu=preload("res://scenes/ui/death_menu.tscn").instantiate()
+		$CanvasLayer.add_child(death_menu)
+
+func update_resource_info(ammo_info:Dictionary, health_info:int)->void:
+	weapon_manager.ammo=ammo_info
+	health=health_info
+	update_ammo_counter(str(weapon_manager.ammo[weapon_manager.current_weapon.name]))
+	ammo_display.update_health_counter(health)

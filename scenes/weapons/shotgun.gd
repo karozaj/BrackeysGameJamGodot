@@ -9,7 +9,7 @@ var default_pitch:float=1.0
 #@export var weapon_range:float=15.0
 var rng=RandomNumberGenerator.new()
 var cooldown:float=.5
-var base_damage:int=10
+var base_damage:int=35
 
 func allign_rays(ray_position:Vector3):
 	$rays.global_position=ray_position

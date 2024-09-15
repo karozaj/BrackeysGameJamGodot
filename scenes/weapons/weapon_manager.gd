@@ -21,11 +21,13 @@ var rocket_launcher
 var weapons:Array
 var weapon_select_animations:Array=["axe_select","pistol_select", "shotgun_select", "chaingun_select", "rocket_launcher_select"]
 var is_block_mode_active:bool=false
+var can_build:bool=false
 var can_shoot:bool=true
-var ammo:Dictionary={"block_weapon":20, "axe":"infinite", "pistol":10, "shotgun":10, "chaingun":100,"rocket_launcher":10}
+var ammo:Dictionary={"block_weapon":0, "axe":"infinite", "pistol":150, "shotgun":30, "chaingun":350,"rocket_launcher":10}
 var current_weapon
 var current_weapon_index:int
 var is_pulling_out_weapon:bool=false
+var is_parent_dead:bool=false
 
 func _ready() -> void:
 	is_pulling_out_weapon=false
@@ -46,17 +48,18 @@ func _ready() -> void:
 	
 func _process(_delta: float) -> void:
 	#TODO: DELETE TEST ACTION
-	if Input.is_action_just_pressed("TEST"):
-		if is_block_mode_active:
-			reset_weapon_selection()
+	#if Input.is_action_just_pressed("TEST"):
+		#if is_block_mode_active:
+			#reset_weapon_selection()
+		#else:
+			#select_block_weapon()
+			
+	if is_parent_dead==false and is_pulling_out_weapon==false:
+		if is_block_mode_active==false:
+			handle_shooting()
+			select_weapon()
 		else:
-			select_block_weapon()
-	
-	if is_block_mode_active==false:
-		handle_shooting()
-		select_weapon()
-	else:
-		handle_block_interaction()
+			handle_block_interaction()
 
 func select_weapon()->void:
 	if Input.is_action_just_pressed("select_weapon_1"):
@@ -171,16 +174,23 @@ func handle_block_interaction()->void:
 		if current_weapon.destroy_block()==true:
 			ammo["block_weapon"]+=1
 			send_ammo_info.emit(str(ammo[current_weapon.name]))
-			print("block destroyed")
-	if Input.is_action_just_pressed("place_block"):
+	if Input.is_action_just_pressed("place_block") and can_build:
 		if ammo["block_weapon"]>0:
 			if current_weapon.place_block()==true:
 				ammo["block_weapon"]-=1
 				send_ammo_info.emit(str(ammo[current_weapon.name]))
-				print("block placed")
 		else:
 			audio_player.stream=sound_no_ammo
 			audio_player.play()
 
 func get_current_ammo()->String:
 	return str(ammo[current_weapon.name])
+
+func add_blocks(how_many:int):
+	ammo["block_weapon"]+=how_many
+	send_ammo_info.emit(str(ammo["block_weapon"]))
+
+func has_no_ammo()->bool:
+	if ammo["pistol"]==0 and ammo["shotgun"]==0 and ammo["chaingun"]==0 and ammo["rocket_launcher"]==0:
+		return true
+	return false
